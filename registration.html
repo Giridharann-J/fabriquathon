@@ -187,7 +187,7 @@ h1 { color: #fff; text-align: center; margin-bottom: 30px; font-weight: 500; }
     </div>
 
     <audio id="background-music" loop>
-        <source src="musicc.mp3" type="audio/mpeg">
+        <source src="music.mp3" type="audio/mpeg">
     </audio>
 
     <div id="welcome-overlay">
@@ -317,6 +317,137 @@ h1 { color: #fff; text-align: center; margin-bottom: 30px; font-weight: 500; }
 
     <button id="music-toggle-btn">Music</button>
 
-    
+    <script>
+        // Welcome Overlay Enter Button
+        const enterBtn = document.getElementById('enter-btn');
+        const welcomeOverlay = document.getElementById('welcome-overlay');
+        const bgMusic = document.getElementById('background-music');
+        
+        enterBtn.addEventListener('click', () => {
+            welcomeOverlay.classList.add('hidden');
+            // Try to play music (may be blocked by browser autoplay policy)
+            bgMusic.play().catch(err => console.log('Music autoplay prevented:', err));
+        });
+
+        // Music Toggle Button
+        const musicToggleBtn = document.getElementById('music-toggle-btn');
+        let isMusicPlaying = false;
+        
+        musicToggleBtn.addEventListener('click', () => {
+            if (isMusicPlaying) {
+                bgMusic.pause();
+                musicToggleBtn.textContent = 'Music';
+            } else {
+                bgMusic.play();
+                musicToggleBtn.textContent = 'Pause';
+            }
+            isMusicPlaying = !isMusicPlaying;
+        });
+
+        // Checkbox for WhatsApp same as Phone
+        const sameAsPhoneCheckbox = document.getElementById('sameAsPhone');
+        const phoneNumberInput = document.getElementById('phoneNumber');
+        const whatsappNoInput = document.getElementById('whatsappNo');
+        
+        sameAsPhoneCheckbox.addEventListener('change', () => {
+            if (sameAsPhoneCheckbox.checked) {
+                whatsappNoInput.value = phoneNumberInput.value;
+                whatsappNoInput.disabled = true;
+            } else {
+                whatsappNoInput.disabled = false;
+            }
+        });
+        
+        phoneNumberInput.addEventListener('input', () => {
+            if (sameAsPhoneCheckbox.checked) {
+                whatsappNoInput.value = phoneNumberInput.value;
+            }
+        });
+
+        // Parse URL parameters for role and events
+        const urlParams = new URLSearchParams(window.location.search);
+        const role = urlParams.get('role') || 'external';
+        const eventsParam = urlParams.get('events') || '';
+        const eventsArray = eventsParam ? eventsParam.split(',') : [];
+        
+        // Set hidden fields
+        document.getElementById('role').value = role;
+        document.getElementById('events').value = eventsParam;
+        
+        // Display role badge
+        const roleBadge = document.getElementById('roleBadge');
+        roleBadge.textContent = role.charAt(0).toUpperCase() + role.slice(1);
+        
+        // Display selected events
+        const eventsBadge = document.getElementById('eventsBadge');
+        const selectedEventsList = document.getElementById('selectedEventsList');
+        
+        const eventNames = {
+            'paper': 'Paper Presentation',
+            'cricket': 'Cricket Draft',
+            'electro': 'Electro Minds',
+            'bytebox': 'Byte Box',
+            'circuit': 'Circuit Chase',
+            'techhint': 'Tech Hint'
+        };
+        
+        if (eventsArray.length > 0) {
+            const eventLabels = eventsArray.map(id => eventNames[id] || id).join(', ');
+            eventsBadge.textContent = `Events: ${eventLabels}`;
+            
+            eventsArray.forEach(id => {
+                const badge = document.createElement('span');
+                badge.textContent = eventNames[id] || id;
+                badge.style.cssText = 'display:inline-block; padding:6px 12px; border-radius:9999px; background:rgba(255,255,255,0.2); color:#fff; font-size:0.85em; border:1px solid rgba(255,255,255,0.3);';
+                selectedEventsList.appendChild(badge);
+            });
+        } else {
+            eventsBadge.textContent = 'No events selected';
+        }
+
+        // Form submission handler
+        const form = document.getElementById('registrationForm');
+        const errorMessage = document.getElementById('error-message');
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errorMessage.textContent = '';
+            
+            // Collect form data
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            
+            // Show loading state
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Submitting...';
+            submitBtn.disabled = true;
+            
+            try {
+                // Replace this URL with your actual Google Apps Script Web App URL
+                const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+                
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    alert('Registration successful! Thank you for registering.');
+                    form.reset();
+                    // Optionally redirect back to home
+                    // window.location.href = 'index.html';
+                } else {
+                    throw new Error('Registration failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                errorMessage.textContent = 'Registration failed. Please try again.';
+            } finally {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
 </body>
 </html>

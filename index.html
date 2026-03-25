@@ -1,2017 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TARAS '25 | Homepage</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-    <!-- Preload critical images for faster above-the-fold render -->
-        <link rel="preload" as="image" href="taras.png" fetchpriority="high">
-        <link rel="preload" as="image" href="Paper.png" fetchpriority="high">
-        <link rel="preload" as="image" href="cricket.png" fetchpriority="high">
-        <link rel="preload" as="image" href="Electrominds.png" fetchpriority="high">
-        <link rel="preload" as="image" href="bytebox.png" fetchpriority="high">
-        <link rel="preload" as="image" href="CircuitChase.png" fetchpriority="high">
-        <link rel="preload" as="image" href="th.png" fetchpriority="high">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    
-    
-
-    <style>
-        /* --- Base & Background --- */
-        :root {
-            --primary-color: #8e44ad;
-            --dark-bg: #151525;
-            --light-text: #e0e0e0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            min-height: 100vh;
-            position: relative;
-            z-index: 0;
-            color: var(--light-text);
-            /* Static red abstract background matching reference */
-            background:
-                linear-gradient(135deg, #733232 0%, #271010 35%, #1a0707 60%, #551515 100%);
-            overflow-x: hidden;
-            margin: 0 auto; /* center document flow */
-            width: 100%;
-        }
-
-        /* SVG abstract background container (sharp curves + soft glow) */
-        #abstract-bg {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            pointer-events: none;
-        }
-        #abstract-bg svg { width: 100%; height: 100%; display: block; }
-        /* Static SVG background - animations removed for performance */
-
-        /* (Animations removed) */
-
-        h1, h2, h3, h4, h5, p, .nav-link, label {
-            text-shadow: 0 2px 5px rgba(0,0,0,0.6);
-        }
-
-        
-
-        /* --- Navbar --- */
-        .navbar {
-            background:
-                linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,255,255,0) 20%, rgba(255,255,255,0.08)),
-                linear-gradient(90deg, rgba(20,8,8,0.78), rgba(92,12,12,0.55), rgba(20,8,8,0.78));
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.35);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .navbar::after {
-            content: '';
-            position: absolute;
-            left: 0; right: 0; bottom: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), #ffefef, rgba(255,255,255,0.8), transparent);
-            opacity: 0.9;
-        }
-        .navbar-brand {
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            color: #fff !important;
-            position: relative;
-            padding-left: 46px;
-        }
-        .navbar-brand::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 50%; transform: translateY(-50%);
-            width: 36px; height: 36px; border-radius: 50%;
-            background: url('bull.gif') center/cover no-repeat;
-            box-shadow: 0 0 0 2px rgba(255,0,0,0.6), 0 0 14px rgba(255,0,0,0.5);
-        }
-        .nav-link {
-            position: relative;
-            padding-bottom: 0.5rem;
-            transition: color 0.3s ease;
-            color: #f5f5f5 !important;
-            border-radius: 9999px;
-            padding: 0.35rem 0.9rem;
-            border: 1px solid rgba(255,255,255,0.22);
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #ffffff, #ff3b3b, #ffffff);
-            transition: width 0.3s ease, box-shadow 0.3s ease;
-        }
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 60%;
-        }
-        .nav-link:hover,
-        .nav-link.active {
-            color: #111111 !important;
-            background: linear-gradient(90deg, rgba(255,255,255,0.98), rgba(255,255,255,0.9));
-            box-shadow: 0 0 18px rgba(255,255,255,0.35) inset, 0 4px 16px rgba(0,0,0,0.25);
-            border-color: transparent;
-        }
-        .navbar .btn.btn-outline-light {
-            border-width: 2px;
-            border-color: rgba(255,255,255,0.65);
-            color: #fff;
-            background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-            transition: all 0.25s ease;
-        }
-        .navbar .btn.btn-outline-light:hover {
-            background: linear-gradient(90deg, #ff3b3b, #b81414);
-            border-color: transparent;
-            color: #000;
-            box-shadow: 0 8px 20px rgba(255,59,59,0.35);
-        }
-
-        /* Themed Register button */
-        .btn-register {
-            background: linear-gradient(90deg, #ff3b3b, #b81414);
-            color: #fff !important;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 9999px;
-            padding: 0.45rem 1rem;
-            font-weight: 700;
-            letter-spacing: 0.2px;
-            box-shadow: 0 8px 22px rgba(0,0,0,0.35), 0 8px 22px rgba(255,59,59,0.22);
-            transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-        }
-        .btn-register:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 10px 26px rgba(0,0,0,0.4), 0 12px 28px rgba(255,59,59,0.28);
-            filter: brightness(1.05);
-            color: #111 !important;
-        }
-        .btn-register:active {
-            transform: translateY(0);
-            filter: brightness(0.98);
-        }
-        /* Navbar sizing */
-        .navbar .btn-register { padding: 0.35rem 0.9rem; }
-
-        /* Brochure bar */
-        .brochure-bar {
-            background: linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
-        }
-        .brochure-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 18px;
-            border-radius: 9999px;
-            background: linear-gradient(90deg, #ffffff, #f5f5f5);
-            color: #111111 !important;
-            text-decoration: none;
-            font-weight: 700;
-            letter-spacing: 0.2px;
-            box-shadow: 0 6px 18px rgba(255,255,255,0.18), 0 4px 16px rgba(0,0,0,0.18);
-            transform: translateZ(0);
-        }
-        .brochure-link i { color: #c51616; }
-        .brochure-link:hover {
-            opacity: 1;
-            transform: translateY(-1px);
-            box-shadow: 0 10px 28px rgba(255,255,255,0.22), 0 8px 20px rgba(0,0,0,0.24);
-        }
-
-        /* Subtle animated background orbs (performance-friendly) */
-        /* Static orbs - animations removed for performance */
-        .bg-orbs { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
-        .bg-orbs .orb {
-            position: absolute;
-            width: 520px; height: 520px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, rgba(255,70,70,0.25), rgba(255,70,70,0.05) 60%, rgba(255,70,70,0) 70%);
-            filter: blur(20px);
-            mix-blend-mode: screen;
-        }
-        .bg-orbs .o1 { top: -120px; left: -140px; }
-        .bg-orbs .o2 { top: 40%; right: -180px; width: 620px; height: 620px; }
-        .bg-orbs .o3 { bottom: -160px; left: 35%; width: 560px; height: 560px; }
-        .bg-orbs .o4 { top: 10%; left: 65%; width: 420px; height: 420px; }
-
-        /* --- MODIFIED: Header: Logo & Info --- */
-        header {
-            padding: 5rem 0; /* Creates space from navbar and below */
-        }
-
-        .logo-container {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            height: auto;
-            max-width: 380px;
-            border: none;
-            border-radius: 50%;
-            background: transparent;
-            backdrop-filter: blur(3px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px 20px 46px 20px; /* add bottom safe-area so caption stays inside circle */
-            transition: border-color 0.3s ease, transform 0.3s ease;
-            overflow: hidden;
-            position: relative; /* needed for pseudo-elements */
-            backface-visibility: hidden;
-            transform-style: preserve-3d;
-            will-change: transform, box-shadow;
-            /* Animated red glow effect */
-            animation: logoGlow 4s ease-in-out infinite alternate;
-            box-shadow:
-                0 0 28px rgba(255, 0, 0, 0.55),  /* outer red glow */
-                0 12px 28px rgba(0, 0, 0, 0.6);  /* black depth */
-        }
-        .logo-container:hover {
-            border-color: rgba(255, 0, 0, 0.85);
-            /* gentle 3D tilt on hover (GPU-accelerated) */
-            transform: scale(1.02) rotate3d(0.2, -0.2, 0, 3deg);
-            box-shadow:
-                0 0 0 5px rgba(255, 0, 0, 0.6),
-                0 0 40px rgba(255, 0, 0, 0.7),
-                0 16px 34px rgba(0, 0, 0, 0.65);
-            will-change: transform, box-shadow;
-        }
-
-        /* Lightweight animated ring (rotates slowly) */
-        .logo-container::before {
-            content: '';
-            position: absolute;
-            inset: -6px; /* slight overscan to avoid clipping during rotation */
-            border-radius: 50%;
-            background: conic-gradient(
-                from 0deg,
-                rgba(255, 59, 59, 0.36) 0%,
-                rgba(255, 180, 180, 0.14) 22%,
-                rgba(255, 59, 59, 0.28) 45%,
-                rgba(255, 180, 180, 0.14) 70%,
-                rgba(255, 59, 59, 0.36) 100%
-            );
-            -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 0);
-                    mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 0);
-            animation: ringSpin 28s linear infinite;
-            filter: blur(0.2px);
-            pointer-events: none;
-            will-change: transform;
-        }
-
-        /* Subtle moving sheen inside the circle */
-        .logo-container::after {
-            content: '';
-            position: absolute;
-            inset: -20%;
-            border-radius: 50%;
-            background: radial-gradient(
-                circle at 20% 15%,
-                rgba(255,255,255,0.18) 0%,
-                rgba(255,255,255,0.08) 12%,
-                rgba(255,255,255,0.00) 28%
-            );
-            mix-blend-mode: screen;
-            animation: sheenOrbit 18s ease-in-out infinite;
-            pointer-events: none;
-            will-change: transform, opacity;
-        }
-
-        /* Logo glow animation */
-        @keyframes logoGlow {
-            0% {
-                box-shadow:
-                    0 0 28px rgba(255, 0, 0, 0.55),
-                    0 12px 28px rgba(0, 0, 0, 0.6);
-            }
-            100% {
-                box-shadow:
-                    0 0 45px rgba(255, 0, 0, 0.75),
-                    0 0 65px rgba(255, 0, 0, 0.45),
-                    0 12px 28px rgba(0, 0, 0, 0.6);
-            }
-        }
-
-        /* Slow, GPU-friendly transforms */
-        @keyframes ringSpin { to { transform: rotate(360deg); } }
-        @keyframes sheenOrbit {
-            0%   { transform: rotate(0deg) translate(0, 0); opacity: 0.7; }
-            50%  { transform: rotate(180deg) translate(2%, 1%); opacity: 1; }
-            100% { transform: rotate(360deg) translate(0, 0); opacity: 0.7; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .logo-container { animation: none; }
-            .logo-container::before, .logo-container::after { animation: none; }
-        }
-        .logo-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            object-position: center 36%;
-            border-radius: 0; /* container handles the circular mask */
-        }
-        .college-info { width: 100%; text-align: center; }
-        .college-info h2 {
-            font-weight: 800;
-            font-size: clamp(1.4rem, 3.5vw, 3.2rem); /* Tuned to keep on one line on large screens */
-            display: inline-flex;
-            align-items: center;
-            gap: 5px; /* exact 5px gap */
-            width: auto;
-            margin: 0 auto;
-            justify-content: center;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            line-height: 1.1;
-            flex-wrap: nowrap;
-        }
-        .college-info .college-title { flex: 0 1 auto; text-align: center; padding: 0; margin: 0; }
-        .brand-badge {
-            width: clamp(100px, 4.5vw, 200px);
-            height: clamp(100px, 4.5vw, 200px);
-            border-radius: 50%;
-            box-shadow: 0 0 0 2px rgba(255,0,0,0.6), 0 0 18px rgba(255,0,0,0.5), 0 8px 16px rgba(0,0,0,0.5);
-            flex: 0 0 auto;
-            margin: 0 5px; /* 5px gap */
-            display: inline-block;
-            background-color: #fff;
-            object-fit: contain;
-        }
-        @media (max-width: 991.98px) {
-            .college-info .college-title { text-align: center; }
-        }
-        .college-info p {
-            font-size: 20px;
-        }
-        
-        /* --- Countdown Timer Section --- */
-        .countdown-section {
-            padding: 3rem 0;
-        }
-        .timer-container {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        .timer-box {
-            text-align: center;
-        }
-        /* Circular timer style */
-        .timer-ring {
-            --pct: 0%;
-            width: clamp(64px, 18vw, 96px);
-            height: clamp(64px, 18vw, 96px);
-            border-radius: 50%;
-            background: conic-gradient(#ff3b3b var(--pct), rgba(255,255,255,0.18) 0);
-            display: grid;
-            place-items: center;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.35), inset 0 0 0 6px rgba(255,255,255,0.75), 0 0 14px rgba(255,59,59,0.25);
-        }
-        .timer-inner {
-            width: calc(100% - 16px);
-            height: calc(100% - 16px);
-            border-radius: 50%;
-            background: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #b81414;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-            font-size: clamp(1.25rem, 6vw, 2.25rem);
-            font-weight: 800;
-            line-height: 1;
-            font-variant-numeric: tabular-nums;
-        }
-        .timer-box .label {
-            font-size: clamp(0.75rem, 4vw, 1rem);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #ff9a9a;
-            margin-top: 0.35rem;
-        }
-        .colon { display: none; }
-
-        /* Countdown responsive tweaks */
-        @media (max-width: 767.98px) {
-            .timer-container { gap: 0.5rem; flex-wrap: nowrap; justify-content: space-between; }
-            .timer-box { flex: 0 0 auto; }
-            .timer-ring { width: clamp(48px, 16vw, 64px); height: clamp(48px, 16vw, 64px); }
-            .timer-inner { font-size: clamp(0.95rem, 5.5vw, 1.4rem); }
-            .timer-box .label { font-size: clamp(0.7rem, 3.5vw, 0.9rem); }
-        }
-        @media (max-width: 575.98px) {
-            .timer-container { gap: 0.4rem; }
-            .timer-ring { width: clamp(44px, 15vw, 58px); height: clamp(44px, 15vw, 58px); }
-            .timer-inner { font-size: clamp(0.9rem, 5vw, 1.2rem); }
-            .timer-box .label { font-size: clamp(0.65rem, 3.2vw, 0.85rem); }
-        }
-        .info-box-container {
-            margin-top: 3rem;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-        }
-        .info-box {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 15px;
-            padding: 1rem 1.5rem;
-            text-align: center;
-            width: 220px;
-            transition: all 0.3s ease;
-        }
-        .info-box:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
-        }
-        .info-box i {
-            font-size: 1.5rem;
-        }
-        
-        /* Individual icon colors for better visual distinction */
-        .info-box .bi-calendar-event {
-            color: #4CAF50; /* Green for date/calendar */
-        }
-        
-        .info-box .bi-geo-alt {
-            color: #2196F3; /* Blue for venue/location */
-        }
-        
-        .info-box .bi-trophy {
-            color: #FF9800; /* Orange for level/trophy */
-        }
-        
-        .info-box .bi-cpu {
-            color: #9C27B0; /* Purple for department/technology */
-        }
-        .info-box .info-title {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            color: #aaa;
-            margin-top: 0.5rem;
-        }
-        .info-box .info-data {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #fff;
-        }
-
-        /* --- Content Sections --- */
-        .content-section {
-            padding: 5rem 0;
-        }
-        .section-title {
-            font-weight: 800;
-            color: #fff;
-            position: relative;
-            padding-bottom: 1rem;
-        }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, #5a0f0f, #e32e15);
-            border-radius: 2px;
-        }
-
-        /* --- Glass Card (Events, About) --- */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 15px;
-            padding: 1.5rem;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s ease;
-        }
-        /* Event card visual upgrade (scoped to Events only) */
-        #events .glass-card {
-            position: relative;
-            background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
-            border: none;
-            border-radius: 18px;
-            box-shadow: 0 12px 32px rgba(0,0,0,0.35);
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-        #events .glass-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 20px;
-            padding: 1px;
-            background: linear-gradient(120deg, rgba(255,255,255,0.7), rgba(185,20,20,0.7), rgba(255,59,59,0.7));
-            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-        #events .glass-card:hover {
-            transform: translateY(-6px) scale(1.01);
-            box-shadow: 0 18px 44px rgba(0,0,0,0.42);
-        }
-        #events .glass-card .card-title {
-            font-weight: 800;
-            letter-spacing: 0.2px;
-            margin-top: 2px;
-        }
-        #events .glass-card .card-text {
-            color: rgba(255,255,255,0.85);
-        }
-        .event-logo {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            background-color: #fff;
-            object-fit: contain;
-            box-shadow: 0 0 0 2px rgba(255,0,0,0.45), 0 10px 20px rgba(0,0,0,0.35);
-            margin: 0 auto 12px auto;
-            display: block;
-        }
-        /* Upgraded logo chip for event cards only */
-        #events .event-logo {
-            width: 72px;
-            height: 72px;
-            border-radius: 16px;
-            box-shadow: 0 8px 22px rgba(0,0,0,0.35);
-            border: none;
-        }
-
-        /* --- Mobile Responsiveness Tweaks --- */
-        @media (max-width: 767.98px) {
-            html, body { width: 100%; overflow-x: hidden; }
-            header { padding: 2.5rem 0; }
-            .navbar-brand { 
-                padding-left: 35px; 
-                font-size: 1.1rem;
-            }
-            .navbar-brand::before { width: 28px; height: 28px; }
-            /* Smaller hamburger in mobile */
-            .navbar-toggler { padding: 2px 6px; border-width: 1px; }
-            .navbar-toggler .navbar-toggler-icon { width: 16px; height: 16px; background-size: 16px 16px; }
-            /* Optimize nav links for mobile */
-            .nav-link {
-                font-size: 0.85rem;
-                padding: 0.25rem 0.6rem;
-                margin: 0.1rem 0;
-            }
-            /* Optimize navbar buttons for mobile */
-            .navbar .btn {
-                font-size: 0.75rem;
-                padding: 0.3rem 0.6rem;
-                margin: 0.1rem 0;
-            }
-            .logo-container { max-width: 220px; aspect-ratio: 1 / 1; margin: 0 auto 18px auto; }
-            .college-info h2 { font-size: clamp(1.1rem, 5.2vw, 2rem); letter-spacing: 0.02em; flex-wrap: nowrap; gap: 6px; }
-            .college-info .college-title { display: inline-block; }
-            .brand-badge { width: 28px; height: 28px; margin: 0 6px; }
-            .college-info p { font-size: 0.9rem; }
-            .timer-container { gap: 0.5rem; }
-            .timer-box .time { font-size: clamp(1.6rem, 10vw, 2.6rem); }
-            .info-box { width: 46%; min-width: 160px; }
-            .event-logo { width: 48px; height: 48px; }
-            .gallery-item img { width: 100%; aspect-ratio: 1 / 1; height: auto; object-fit: cover; }
-            /* People grid spacing - profile cards */
-            #coordinators .row, #organizers .row, #volunteers .row { justify-content: center; flex-direction: column; align-items: center; gap: 1.25rem; width: 100%; margin-left: 0; margin-right: 0; }
-            #coordinators .row > div, #organizers .row > div, #volunteers .row > div { width: 100%; max-width: 380px; margin: 0 auto; padding-left: 8px; padding-right: 8px; display: flex; justify-content: center; }
-            .person-circle { width: 100%; max-width: 360px; }
-            .person-circle img { height: auto; min-height: 180px; }
-            .person-circle h5 { font-size: 1.05rem; }
-            .person-circle .role { font-size: 0.9rem; }
-            /* Event card readability but centered */
-            .glass-card { text-align: center; }
-            .glass-card .card-title { text-align: center; }
-            /* Brochure button optimization for tablets */
-            .brochure-link { 
-                padding: 5px 10px; 
-                gap: 5px; 
-                font-size: 0.8rem;
-                font-weight: 600;
-            }
-            .brochure-link i { 
-                font-size: 0.95rem;
-            }
-            /* Contact section mobile optimization */
-            #contact .section-title {
-                font-size: 1.4rem;
-                margin-bottom: 2rem;
-            }
-            #contact .card-title {
-                font-size: 1rem;
-                margin-bottom: 0.5rem;
-            }
-            #contact .card-text {
-                font-size: 0.9rem;
-                line-height: 1.4;
-            }
-            #contact .glass-card {
-                padding: 1rem !important;
-            }
-            /* Full-page centering helpers */
-            .container { margin-left: auto; margin-right: auto; padding-left: 16px; padding-right: 16px; }
-            .content-section .row, header .row { justify-content: center !important; }
-            .content-section .row > div { display: flex; justify-content: center; width: 100%; }
-            #events .glass-card { max-width: 360px; width: 100%; }
-            /* Scalable headings */
-            .section-title { font-size: clamp(1.2rem, 5.6vw, 1.8rem); }
-            h3, h4, h5 { font-size: clamp(1rem, 4.8vw, 1.2rem); }
-            /* Event card text sizing */
-            #events .glass-card .card-title { font-size: clamp(0.95rem, 4.4vw, 1.15rem); }
-            #events .glass-card .card-text { font-size: clamp(0.8rem, 3.6vw, 1rem); line-height: 1.6; text-align: justify; text-justify: inter-word; }
-            /* About text slightly smaller on phones for balance */
-            #about .glass-card p { font-size: 12px !important; line-height: 1.6; }
-            .nav-link { font-size: 0.95rem; }
-            .btn { font-size: 0.95rem; }
-        }
-
-        /* Laptop / desktop view overrides */
-        @media (min-width: 992px) {
-            /* Increase readability for About section on laptops */
-            #about .glass-card p { font-size: 15px !important; line-height: 1.8; text-align: justify; text-justify: inter-word; }
-            /* Center the about cards and limit width for better layout */
-            #about .row { justify-content: center; gap: 1.5rem; }
-            #about .glass-card { max-width: 520px; margin: 0 auto; text-align: left; }
-        }
-
-        /* Tablet view overrides */
-        @media (min-width: 768px) and (max-width: 991.98px) {
-            #about .glass-card p { font-size: 14px !important; line-height: 1.7; text-align: justify; text-justify: inter-word; }
-        }
-
-        /* Tablet: 2 profiles per row, phone: 1 per row */
-        @media (min-width: 576px) and (max-width: 991.98px) {
-            #coordinators .row, #organizers .row, #volunteers .row { flex-direction: row; flex-wrap: wrap; gap: 1rem 1.25rem; }
-            #coordinators .row > div, #organizers .row > div, #volunteers .row > div { flex: 0 0 48%; max-width: 48%; display: flex; justify-content: center; }
-            .person-circle { max-width: 300px; }
-        }
-
-        @media (max-width: 575.98px) {
-            .info-box { width: 100%; }
-            .college-info h2 { flex-wrap: wrap; text-align: center; }
-            .brand-badge { width: 24px; height: 24px; }
-            /* Smaller brochure pill on phones */
-            .brochure-link { 
-                padding: 4px 8px; 
-                gap: 4px; 
-                font-size: 0.75rem;
-                font-weight: 600;
-                letter-spacing: 0.1px;
-            }
-            .brochure-link i { 
-                font-size: 0.9rem;
-            }
-            /* Ultra-compact navbar for small phones */
-            .navbar-brand { 
-                padding-left: 30px; 
-                font-size: 1rem;
-            }
-            .navbar-brand::before { width: 24px; height: 24px; }
-            .navbar-toggler { padding: 1px 4px; }
-            .navbar-toggler .navbar-toggler-icon { width: 14px; height: 14px; background-size: 14px 14px; }
-            .nav-link {
-                font-size: 0.8rem;
-                padding: 0.2rem 0.5rem;
-                margin: 0.05rem 0;
-            }
-            .navbar .btn {
-                font-size: 0.7rem;
-                padding: 0.25rem 0.5rem;
-                margin: 0.05rem 0;
-            }
-            /* Contact section ultra-compact for small phones */
-            #contact .section-title {
-                font-size: 1.2rem;
-                margin-bottom: 1.5rem;
-            }
-            #contact .card-title {
-                font-size: 0.9rem;
-                margin-bottom: 0.4rem;
-            }
-            #contact .card-text {
-                font-size: 0.8rem;
-                line-height: 1.3;
-            }
-            #contact .glass-card {
-                padding: 0.8rem !important;
-            }
-            #contact .card-title i {
-                font-size: 0.9rem;
-            }
-        }
-
-        /* --- Global alignment rules: center layout, balanced text --- */
-        header, .content-section, footer { text-align: center; }
-        p, .card-text, .accordion-body, .college-info p { text-align: center; }
-        .content-section .row { justify-content: center; margin-left: 0; margin-right: 0; }
-        @media (max-width: 575.98px) {
-            p, .card-text, .accordion-body, .college-info p { text-align: center; }
-        }
-        /* Defer offscreen rendering for heavy sections on mobile */
-        @media (max-width: 991.98px) {
-            #events, #about, #gallery, #hod, #coordinators, #organizers, #volunteers, #developer, #contact {
-                content-visibility: auto;
-                contain-intrinsic-size: 800px 1000px; /* reserve space to avoid layout shift */
-            }
-        }
-        .glass-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        .glass-card .card-title {
-            color: #fff;
-            font-weight: 600;
-        }
-        /* Ensure consistent typography for Our Vision and Our Mission paragraphs */
-        #about .glass-card p { font-size: 13px; line-height: 1.7; text-align: justify; text-justify: inter-word; }
-        .glass-card .btn {
-            border-width: 2px;
-            font-weight: 600;
-        }
-        .glass-card .btn:hover {
-            background-color: #fff;
-            color: #000;
-            transform: scale(1.05);
-        }
-
-        /* --- Gallery Styling --- */
-        .gallery-item {
-            overflow: hidden;
-            border-radius: 15px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-            aspect-ratio: 1 / 1; /* make square */
-        }
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-            display: block;
-        }
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-
-        /* --- Modal Styling --- */
-        .modal-content.glass-card {
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-        .modal-header, .modal-footer {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            border-top: none;
-        }
-        #galleryModal .modal-content {
-            background-color: transparent;
-            border: none;
-        }
-        #galleryModal img {
-            max-height: 80vh;
-            width: auto;
-            border-radius: 15px;
-        }
-        /* Event modal carousel images - Optimized for better poster display */
-        #eventCarousel .carousel-item img {
-            width: 100%;
-            height: auto;
-            max-height: 80vh;
-            min-height: 60vh;
-            object-fit: contain;
-            border-radius: 12px;
-            margin: 0 auto;
-            display: block;
-        }
-        
-        /* Event modal layout improvements */
-        #eventDetailModal .modal-body {
-            padding: 1rem 1.5rem;
-        }
-        
-        #eventDetailModal .modal-footer {
-            padding: 0.75rem 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-        }
-        
-        #eventDetailModal .btn {
-            font-size: 0.8rem;
-            padding: 0.4rem 0.8rem;
-            min-width: auto;
-            border-radius: 8px;
-        }
-        
-        #eventDetailModal .btn-outline-light {
-            border-width: 1px;
-        }
-        
-        /* --- Profile Cards (Coordinators/Organizers/Volunteers) --- */
-        .person-circle {
-            text-align: center;
-            background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-            max-width: 320px;
-            margin: 0 auto;
-        }
-        .person-circle img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            border: none;
-            border-radius: 14px 14px 0 0;
-            transition: transform 0.3s ease;
-            display: block;
-        }
-        .person-circle img:hover {
-            transform: scale(1.02);
-        }
-        .person-circle h5 {
-            margin: 12px 12px 6px 12px;
-            font-weight: 700;
-            color: #fff;
-        }
-        .person-circle .role {
-            font-size: 0.95rem;
-            color: #a8c8ff;
-            margin-bottom: 14px;
-        }
-
-        /* Ensure mobile profile sizes override base values (placed after base rules) */
-        @media (max-width: 767.98px) {
-            .person-circle img { width: 110px !important; height: 110px !important; margin: 0 auto 8px auto; }
-        }
-
-        /* --- Footer --- */
-        footer {
-            margin-top: 4rem;
-            padding: 2rem 0;
-            background: rgba(21, 21, 37, 0.3);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 991.98px) {
-            .college-info {
-                text-align: center !important;
-                margin-top: 2rem;
-            }
-        }
-
-        /* Event Details Modal Mobile Responsiveness */
-        @media (max-width: 767.98px) {
-            #eventDetailModal .modal-dialog {
-                margin: 0.5rem;
-                max-width: calc(100% - 1rem);
-            }
-            
-            #eventDetailModal .modal-title {
-                font-size: 1.1rem;
-                font-weight: 600;
-            }
-            
-            #eventDetailModal .modal-body p {
-                font-size: 0.9rem;
-                line-height: 1.5;
-            }
-            
-            #eventDetailModal .modal-footer {
-                padding: 0.4rem 0.8rem;
-                flex-direction: column;
-                gap: 0.3rem;
-            }
-            
-            #eventDetailModal .modal-footer .d-flex {
-                width: 100%;
-                justify-content: center;
-                flex-wrap: wrap;
-                gap: 0.3rem;
-            }
-            
-            #eventDetailModal .btn {
-                font-size: 0.65rem;
-                padding: 0.25rem 0.4rem;
-                min-width: auto;
-                flex: 1;
-                max-width: 90px;
-                border-radius: 4px;
-                line-height: 1.2;
-            }
-            
-            #eventDetailModal .btn-outline-light {
-                border-width: 1px;
-            }
-            
-            #eventCarousel .carousel-item img {
-                max-height: 75vh;
-                min-height: 60vh;
-                border-radius: 8px;
-            }
-            
-            #eventCarousel .carousel-control-prev,
-            #eventCarousel .carousel-control-next {
-                width: 40px;
-                height: 40px;
-            }
-            
-            #eventCarousel .carousel-control-prev-icon,
-            #eventCarousel .carousel-control-next-icon {
-                width: 20px;
-                height: 20px;
-            }
-        }
-
-        @media (max-width: 575.98px) {
-            #eventDetailModal .modal-dialog {
-                margin: 0.25rem;
-                max-width: calc(100% - 0.5rem);
-            }
-            
-            #eventDetailModal .modal-title {
-                font-size: 1rem;
-            }
-            
-            #eventDetailModal .modal-body p {
-                font-size: 0.85rem;
-            }
-            
-            #eventDetailModal .btn {
-                font-size: 0.6rem;
-                padding: 0.2rem 0.3rem;
-                max-width: 80px;
-                border-radius: 3px;
-                line-height: 1.1;
-            }
-            
-            #eventCarousel .carousel-item img {
-                max-height: 70vh;
-                min-height: 55vh;
-            }
-            
-            #eventCarousel .carousel-control-prev,
-            #eventCarousel .carousel-control-next {
-                width: 35px;
-                height: 35px;
-            }
-            
-            #eventCarousel .carousel-control-prev-icon,
-            #eventCarousel .carousel-control-next-icon {
-                width: 18px;
-                height: 18px;
-            }
-        }
-
-        /* Performance Optimizations - Critical for Mobile */
-        @media (max-width: 767.98px) {
-            /* Disable heavy animations on mobile */
-            .logo-container {
-                animation: none !important;
-            }
-            .logo-container::before,
-            .logo-container::after {
-                animation: none !important;
-            }
-            
-            /* Reduce backdrop blur for better performance */
-            .navbar {
-                backdrop-filter: blur(4px) !important;
-                -webkit-backdrop-filter: blur(4px) !important;
-            }
-            
-            .glass-card {
-                backdrop-filter: blur(4px) !important;
-                -webkit-backdrop-filter: blur(4px) !important;
-            }
-            
-            .brochure-bar {
-                backdrop-filter: blur(3px) !important;
-                -webkit-backdrop-filter: blur(3px) !important;
-            }
-            
-            /* Simplify hover effects */
-            .glass-card:hover {
-                transform: translateY(-3px) !important;
-                box-shadow: 0 8px 20px rgba(0,0,0,0.3) !important;
-            }
-            
-            .info-box:hover {
-                transform: translateY(-2px) !important;
-            }
-            
-            /* Optimize logo container */
-            .logo-container {
-                will-change: auto !important;
-            }
-            
-            .logo-container:hover {
-                transform: scale(1.01) !important;
-                will-change: auto !important;
-            }
-        }
-
-        /* Ultra-light mode for very small screens */
-        @media (max-width: 575.98px) {
-            /* Further reduce effects */
-            .navbar {
-                backdrop-filter: blur(2px) !important;
-                -webkit-backdrop-filter: blur(2px) !important;
-            }
-            
-            .glass-card {
-                backdrop-filter: blur(2px) !important;
-                -webkit-backdrop-filter: blur(2px) !important;
-            }
-            
-            /* Disable all transforms on hover for better performance */
-            .glass-card:hover {
-                transform: none !important;
-            }
-            
-            .info-box:hover {
-                transform: none !important;
-            }
-            
-            .logo-container:hover {
-                transform: none !important;
-            }
-            
-            /* Extra small mobile optimizations for event modal */
-            #eventDetailModal .modal-dialog {
-                margin: 0.15rem;
-                max-width: calc(100% - 0.3rem);
-            }
-            
-            #eventDetailModal .modal-body {
-                padding: 0.5rem 0.8rem;
-            }
-            
-            #eventDetailModal .modal-footer {
-                padding: 0.3rem 0.6rem;
-                gap: 0.25rem;
-            }
-            
-            #eventDetailModal .modal-footer .d-flex {
-                gap: 0.25rem;
-            }
-        }
-
-        /* Image optimization for faster loading */
-        .event-logo {
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-            image-rendering: pixelated;
-            /* Force hardware acceleration for smoother rendering */
-            transform: translateZ(0);
-            will-change: transform;
-            /* Optimize for faster paint */
-            backface-visibility: hidden;
-        }
-        
-        /* Additional optimization for all images */
-        img {
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-        }
-        
-        /* Preload critical images */
-        .event-logo[src="Paper.png"],
-        .event-logo[src="cricket.png"],
-        .event-logo[src="Electrominds.png"],
-        .event-logo[src="bytebox.png"],
-        .event-logo[src="CircuitChase.png"],
-        .event-logo[src="th.png"] {
-            content-visibility: auto;
-            contain-intrinsic-size: 72px 72px;
-        }
-
-        /* General Instructions card typography */
-        .instructions-card { text-align: left; }
-        .instructions-card .card-title { font-size: clamp(1rem, 3.8vw, 1.25rem); }
-        .instructions-card li { font-size: clamp(0.85rem, 3.4vw, 1rem); line-height: 1.6; color: rgba(255,255,255,0.85); }
-
-        /* Responsive Google Map */
-        .map-container { position: relative; width: 100%; padding-top: 56.25%; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
-        .map-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-        .map-skeleton { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.8); font-weight: 600; background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.12), rgba(255,255,255,0.06)); background-size: 200% 100%; animation: shimmer 1.2s infinite; }
-        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FABRIQUATHON 2K26 - National Level 24-Hour Hardware Hackathon at SRM Valliammai Engineering College.">
+  <title>FABRIQUATHON 2K26 | 24-Hour Hardware Hackathon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="music.mp3" as="audio" type="audio/mpeg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body id="home">
-    <div id="abstract-bg" aria-hidden="true">
-        <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
-            <defs>
-                <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#140707"/>
-                    <stop offset="35%" stop-color="#0a0404"/>
-                    <stop offset="100%" stop-color="#250808"/>
-                </linearGradient>
-                <linearGradient id="blackBand" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#050203" stop-opacity="0.95"/>
-                    <stop offset="100%" stop-color="#050203" stop-opacity="0.75"/>
-                </linearGradient>
-                <linearGradient id="redSweep" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="10%" stop-color="#3C0E0E"/>
-                    <stop offset="10%" stop-color="#9c1010"/>
-                </linearGradient>
-                <radialGradient id="redGlow" cx="75%" cy="20%" r="50%">
-                    <stop offset="0%" stop-color="#ff4a3a" stop-opacity="0.85"/>
-                    <stop offset="45%" stop-color="#e33434" stop-opacity="0.5"/>
-                    <stop offset="100%" stop-color="#ff3b3b" stop-opacity="0.1"/>
-                </radialGradient>
-                <filter id="softBlur" x="-20%" y="-20%" width="140%" height="140%">
-                    <feGaussianBlur stdDeviation="22"/>
-                </filter>
-                <linearGradient id="vignette" x1="0" y1="0.5" x2="1" y2="0.5">
-                    <stop offset="0%" stop-color="#000" stop-opacity="0.25"/>
-                    <stop offset="15%" stop-color="#000" stop-opacity="0.12"/>
-                    <stop offset="50%" stop-color="#000" stop-opacity="0"/>
-                    <stop offset="85%" stop-color="#000" stop-opacity="0.12"/>
-                    <stop offset="100%" stop-color="#000" stop-opacity="0.25"/>
-                </linearGradient>
-            </defs>
-            <rect x="0" y="0" width="1440" height="900" fill="url(#bgGrad)"/>
-            <path d="M0,150 C260,260 520,370 800,320 C980,288 1120,250 1240,220 L1440,210 L1440,0 L0,0 Z" fill="#2b0a0a"/>
-            <path d="M1440,0 L1440,220 C1320,190 1160,220 1000,300 C830,390 680,460 520,480 C360,500 210,470 0,360 L0,240 C170,320 310,350 470,340 C660,325 830,250 980,170 C1110,100 1280,40 1440,0 Z" fill="url(#blackBand)"/>
-            <path d="M0,740 C260,610 520,570 760,590 C980,610 1180,690 1440,780 L1440,900 L0,900 Z" fill="url(#redSweep)" opacity="0.95"/>
-            <circle cx="1040" cy="140" r="420" fill="url(#redGlow)" filter="url(#softBlur)"/>
-            <circle cx="1260" cy="780" r="420" fill="url(#redGlow)" filter="url(#softBlur)"/>
-            <rect x="0" y="0" width="1440" height="900" fill="url(#vignette)"/>
-        </svg>
-    </div>
-    <!-- Animated orbs layer (moved to body for valid markup and deferred paint) -->
-    <div class="bg-orbs" aria-hidden="true">
-        <div class="orb o1"></div>
-        <div class="orb o2"></div>
-        <div class="orb o3"></div>
-        <div class="orb o4"></div>
-    </div>
+<body>
+  <div class="bg-video" aria-hidden="true">
+    <video autoplay muted loop playsinline>
+      <source src="bull background.mp4" type="video/mp4">
+    </video>
+  </div>
 
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="#home">TARAS '25</a>
-            <!-- Mobile-visible Register button outside burger -->
-            <div class="d-lg-none ms-auto me-2">
-                <a class="btn btn-register" href="https://docs.google.com/forms/d/e/1FAIpQLSf9GPGvxOWBTQRbOTst56Y7-knxAWrxfC8pE3H6WX80BLbZow/viewform?usp=header" target="_blank" rel="noopener noreferrer">Register</a>
-            </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact Us</a></li>
-                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0 d-none d-lg-flex gap-2">
-                        <a class="btn btn-register" href="https://docs.google.com/forms/d/e/1FAIpQLSf9GPGvxOWBTQRbOTst56Y7-knxAWrxfC8pE3H6WX80BLbZow/viewform?usp=header" target="_blank" rel="noopener noreferrer">Register</a>
-                    </li>
-                </ul>
-            </div>
+  <header id="home">
+    <nav class="navbar" id="navbar">
+      <div class="container nav-wrap">
+        <a href="#home" class="brand">FABRIQUATHON 2K26</a>
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="nav-menu" id="navMenu">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#schedule">Schedule</a>
+          <a href="#prize">Prize</a>
+          <a href="#rules">Rules</a>
+          <a href="#faculty">Faculty</a>
+          <a href="#contact">Contact</a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLScSxUjaLibIrp03ZZbFOIlRafXk7la-5Qlm-nnh3OlXSlWJXA/viewform?usp=send_form" target="_blank" rel="noopener noreferrer" class="btn btn-register">Register Now</a>
         </div>
+      </div>
     </nav>
 
-    <!-- Brochure bar under navbar -->
-    <div class="brochure-bar py-2">
-        <div class="container d-flex justify-content-end">
-            <a class="brochure-link" href="brou.png" target="_blank" rel="noopener noreferrer">
-                <i class="bi bi-file-earmark-pdf-fill"></i>
-                Brochure
-            </a>
+    <section class="hero section reveal">
+      <div class="container hero-grid">
+        <div class="hero-content hero-panel">
+          <p class="eyebrow">National Level 24-Hrs Hardware Hackathon</p>
+          <h1 class="hero-title">FABRIQUATHON</h1>
+          <h2 class="hero-subtitle">2K26</h2>
+          <p class="hero-meta">Department of ECE, EEE, E&amp;I and MDE</p>
+          <p class="hero-meta">SRM Valliammai Engineering College (An Autonomous Institution)</p>
+          <div class="hero-badges">
+            <span class="chip">10th &amp; 11th April 2026</span>
+            <span class="chip">24-Hour Build Sprint</span>
+          </div>
+          <p class="prize-callout">Prize Pool: &#8377;30,000</p>
+          <div class="hero-actions">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScSxUjaLibIrp03ZZbFOIlRafXk7la-5Qlm-nnh3OlXSlWJXA/viewform?usp=send_form" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Register Now</a>
+            <a href="abs.pdf" class="btn btn-outline" target="_blank" rel="noopener noreferrer">View Brochure</a>
+          </div>
         </div>
+        <div class="hero-logo-wrap">
+          <video class="hero-logo-video" autoplay muted loop playsinline aria-label="Logo panel video">
+            <source src="bull background.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </section>
+  </header>
+
+  <section class="countdown-bar section reveal" aria-label="Countdown to hackathon">
+    <div class="container">
+      <h3>Countdown to Kickoff</h3>
+      <div id="countdown" class="countdown-grid" role="timer" aria-live="polite">
+        <div class="time-box"><span id="days" class="time-value">00</span><span class="time-label">Days</span></div>
+        <div class="time-box"><span id="hours" class="time-value">00</span><span class="time-label">Hours</span></div>
+        <div class="time-box"><span id="minutes" class="time-value">00</span><span class="time-label">Minutes</span></div>
+        <div class="time-box"><span id="seconds" class="time-value">00</span><span class="time-label">Seconds</span></div>
+      </div>
+      <p id="countdownStatus" class="countdown-status"></p>
     </div>
+  </section>
 
-    <header class="container">
-        <h1 class="visually-hidden">TARAS '25 – National Level Technical Symposium</h1>
-        <div class="row align-items-center">
-            <div class="col-lg-4" data-aos="fade-right">
-                <div class="logo-container">
-                    <img src="taras.png" alt="TARAS Logo" class="logo-image" width="380" height="380" decoding="async" fetchpriority="high">
-                </div>
-            </div>
-            <div class="col-lg-8 text-center d-flex flex-column justify-content-center" data-aos="fade-left" data-aos-delay="200">
-                <div class="college-info">
-                    <h2>
-                        <img class="brand-badge brand-left" src="SRM-left.jpg" alt="" loading="lazy" decoding="async" fetchpriority="low">
-                        <span class="college-title">SRM Valliammai Engineering College</span>
-                        <img class="brand-badge brand-right" src="SRM-right.png" alt="" loading="lazy" decoding="async" fetchpriority="low">
-                    </h2>
-                    <p class="lead text-white-50">Department of ECE</p>
-                    <p class="lead text-white-50">A National Level Technical Symposium</p>
-                </div>
-            </div>
+  <main>
+    <section id="about" class="section reveal">
+      <div class="container">
+        <div class="section-head">
+          <h2>About the Hackathon</h2>
+          <p>FABRIQUATHON 2K26 is a national-level 24-hour hands-on hardware hackathon where engineering minds from across India build real, working prototypes to solve real-world problems through two competitive tracks.</p>
         </div>
-    </header>
-
-    <section class="countdown-section" data-aos="fade-up">
-        <div class="container text-center">
-            <h3 class="mb-4">Event Begins In</h3>
-            <div class="timer-container" id="countdown-timer">
-                <div class="timer-box">
-                    <div class="timer-ring" id="ring-days" style="--pct:0%"><div class="timer-inner" id="days">00</div></div>
-                    <div class="label">Days</div>
-                </div>
-                <div class="timer-box">
-                    <div class="timer-ring" id="ring-hours" style="--pct:0%"><div class="timer-inner" id="hours">00</div></div>
-                    <div class="label">Hours</div>
-                </div>
-                <div class="timer-box">
-                    <div class="timer-ring" id="ring-minutes" style="--pct:0%"><div class="timer-inner" id="minutes">00</div></div>
-                    <div class="label">Minutes</div>
-                </div>
-                <div class="timer-box">
-                    <div class="timer-ring" id="ring-seconds" style="--pct:0%"><div class="timer-inner" id="seconds">00</div></div>
-                    <div class="label">Seconds</div>
-                </div>
+        <div class="about-grid">
+          <article class="about-text card">
+            <h3>What Makes It Different</h3>
+            <p>This is a build-first hackathon designed for serious makers. Teams ideate, pitch, fabricate, test, and present under one roof with continuous mentoring support.</p>
+            <ul>
+              <li>National level participation</li>
+              <li>Hardware-centric prototype outcomes</li>
+              <li>24-hour rapid engineering cycle</li>
+              <li>Cross-domain team collaboration</li>
+            </ul>
+            <div class="supporting-bodies">
+              <h4>Supporting Bodies</h4>
+              <div class="body-tags">
+                <span>IIC</span>
+                <span>IETE</span>
+                <span>ISTE</span>
+                <span>IDEALab</span>
+                <span>CSI</span>
+              </div>
             </div>
-            <div class="info-box-container">
-                <div class="info-box"><i class="bi bi-calendar-event"></i><div class="info-title">Date</div><div class="info-data">Sep 27, 2025</div></div>
-                <div class="info-box"><i class="bi bi-geo-alt"></i><div class="info-title">Venue</div><div class="info-data">SRM VEC</div></div>
-                <div class="info-box"><i class="bi bi-trophy"></i><div class="info-title">Level</div><div class="info-data">National</div></div>
-                <div class="info-box"><i class="bi bi-cpu"></i><div class="info-title">Department</div><div class="info-data">ECE</div></div>
-            </div>
+          </article>
+          <div class="stats-grid">
+            <article class="stat-card card"><p class="stat-value">24 Hrs</p><p class="stat-label">Build Window</p></article>
+            <article class="stat-card card"><p class="stat-value">&#8377;30K</p><p class="stat-label">Prize Pool</p></article>
+            <article class="stat-card card"><p class="stat-value">2</p><p class="stat-label">Tracks</p></article>
+            <article class="stat-card card"><p class="stat-value">3</p><p class="stat-label">Members/Team</p></article>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- Registration Selection Modal -->
-    <div class="modal fade" id="regSelectModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content glass-card">
-                <div class="modal-header">
-                    <h5 class="modal-title">Select Events</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p class="text-white-50 mb-3" id="regRoleNote"></p>
-                    <div id="eventCheckboxList" class="d-grid gap-2"></div>
-                    <div class="mt-3 small text-warning d-none" id="maxSelectMsg">You can select up to 3 events.</div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-light text-dark" id="regContinueBtn" disabled>Continue</button>
-                </div>
-            </div>
+    <section id="prize" class="section reveal">
+      <div class="container">
+        <div class="section-head">
+          <h2>Prize Pool</h2>
+          <p class="gold-total">&#8377;<span class="counter" data-target="30000">0</span> Total</p>
         </div>
-    </div>
-
-    <main class="container">
-
-        <section id="events" class="content-section">
-            <h2 class="section-title text-center mb-5" data-aos="fade-up">Events</h2>
-            <div class="row g-4 g-lg-5">
-                <div class="col-lg-4 col-md-6" data-aos="fade-up">
-                    <div class="glass-card">
-                        <img class="event-logo" src="Paper.png" alt="Pitch Your Paper logo" loading="eager" decoding="async" fetchpriority="high" width="72" height="72">
-                        <h5 class="card-title">Paper Pothumarai</h5>
-                        <p class="card-text text-white-50">It is a paper presentation event for ECE students to showcase innovation, research, and technical skills.</p>
-                        <button class="btn btn-outline-light mt-auto" data-bs-toggle="modal" data-bs-target="#eventDetailModal"
-                            data-event-title="Paper Presentation"
-                            data-details="A showcase of innovative ECE research and ideas."
-                            data-poster="Paper.png"
-                            data-img1="ppp1.jpg"
-                            data-img2="ppp2.jpg"
-                            data-img3="ppp3.jpg"
-                            data-pdf="abs.pdf"
-                            data-pdf-label="Download Abstract Format"
-                            data-internal="registration.html?event=pitch&role=internal"
-                            data-external="registration.html?event=pitch&role=external">
-                            Details
-                        </button>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="glass-card">
-                        <img class="event-logo" src="cricket.png" alt="Bingo Blitz logo" loading="eager" decoding="async" fetchpriority="high" width="72" height="72">
-                        <h5 class="card-title">Cricket Draft</h5>
-                        <p class="card-text text-white-50">A strategy-based cricket event where teams compete in two rounds to build the ultimate squad.</p>
-                        <button class="btn btn-outline-light mt-auto" data-bs-toggle="modal" data-bs-target="#eventDetailModal"
-                            data-event-title="Cricket Draft"
-                            data-details="A competitive cricket draft designed to test strategy and teamwork."
-                            data-poster="Paper.png"
-                            data-img1="cdp1.jpg"
-                            data-img2="cdp2.jpg">
-                            Details
-                        </button>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="glass-card">
-                        <img class="event-logo" src="Electrominds.png" alt="Tech Hint logo" loading="eager" decoding="async" fetchpriority="high" width="72" height="72">
-                        <h5 class="card-title">Electro Minds</h5>
-                        <p class="card-text text-white-50">Electro⚡Minds is a technical event celebrating innovation and electrifying competitions.</p>
-                        <button class="btn btn-outline-light mt-auto" data-bs-toggle="modal" data-bs-target="#eventDetailModal"
-                            data-event-title="Electro Minds"
-                            data-details="An electrifying technical challenge that celebrates innovation."
-                            data-img1="emp1.jpg"
-                            data-img2="emp2.jpg">
-                            Details
-                        </button>
-                    </div>
-                </div>
-                <!-- Event 4 -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                    <div class="glass-card">
-                        <img class="event-logo" src="bytebox.png" alt="Byte Box logo" loading="eager" decoding="async" fetchpriority="high" width="72" height="72">
-                        <h5 class="card-title">Byte Box</h5>
-                        <p class="card-text text-white-50">Byte Box is a tech quiz turned grid game of strategy, speed, and wit.</p>
-                        <button class="btn btn-outline-light mt-auto" data-bs-toggle="modal" data-bs-target="#eventDetailModal"
-                            data-event-title="Byte Box"
-                            data-details="A fast-paced quiz on electronics, CS, AI, and tech trends."
-                            data-img1="bbp1.jpg"
-                            data-img2="bbp2.jpg">
-                            Details
-                        </button>
-                    </div>
-                </div>
-                <!-- Event 5 -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-                    <div class="glass-card">
-                        <img class="event-logo" src="CircuitChase.png" alt="Circuit Chase logo" loading="eager" decoding="async" fetchpriority="high" width="72" height="72">
-                        <h5 class="card-title">Circuit Chase</h5>
-                        <p class="card-text text-white-50">Circuit Chase is a team-based tech event that tests problem-solving, circuit skills, and quick thinking.</p>
-                        <button class="btn btn-outline-light mt-auto" data-bs-toggle="modal" data-bs-target="#eventDetailModal"
-                            data-event-title="Circuit Chase"
-                            data-details="A team-based challenge testing problem-solving and circuit skills."
-                            data-img1="ccpq.jpg"
-                            data-img2="ccp2.jpg">
-                            Details
-                        </button>
-                    </div>
-                </div>
-                <!-- Event 6 -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
-                    <div class="glass-card">
-                        <img class="event-logo" src="thlo.png" alt="Tech Hint logo" loading="eager" decoding="async" fetchpriority="high" width="72" height="72">
-                        <h5 class="card-title">Tech Hint</h5>
-                        <p class="card-text text-white-50">A fun and competitive word-based event that sharpens technical vocabulary, teamwork, and quick thinking.</p>
-                        <button class="btn btn-outline-light mt-auto" data-bs-toggle="modal" data-bs-target="#eventDetailModal"
-                            data-event-title="Tech Hint"
-                            data-details="A competitive word-based challenge to sharpen technical vocabulary and teamwork."
-                            data-img1="thpf.jpg"
-                            data-img2="thpf2.jpg">
-                            Details
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- General Instructions Card -->
-            <div class="row mt-4 mt-lg-5 justify-content-center" data-aos="fade-up" data-aos-delay="600">
-                <div class="col-12 col-lg-10 col-xl-8">
-                    <div class="glass-card instructions-card p-3 p-md-4">
-                        <h5 class="card-title mb-3 text-center">General Instructions</h5>
-                        <ul class="mb-0 ps-3">
-                            <li>A valid college ID card is mandatory for registration and participation.</li>
-                            <li>Registration fee:Rs.100/- per participant.
-                            </li>
-                            <li>Payment is not refundable.
-                            </li>
-                            <li>Team size :1-4 members(may vary according to events).
-                            </li>
-                            <li>All participants must register before the deadline specified by the organizers (25.09.25).
-                            </li>
-                            <li>Judges decision will be the final.
-                            </li>
-                            <li>Each participant is allowed to register for only 2 events. Based on slot availability participants are allowed to participate in other events also.
-                            </li>
-                            <li>If you are registering for Paper Presentation as a group(max:3),each member in a group should register seperately by uploading same abstract. Will be considered as a team and approach you for further details.
-                            </li>
-                            <li>Certificate will be provided as hard copy to all participants.
-                            </li>
-                            <li>Lunch and registration kit will be provided.
-                            </li>
-                            <li>On Spot registration will be available based on slot availability.
-                            </li>
-                            <li>Participants will be divided into batches (ex:batch1,batch 2) and they will be allotted with specific time slot for participation in events.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- College Location Map -->
-            <div class="row mt-4 justify-content-center" data-aos="fade-up" data-aos-delay="700">
-                <div class="col-12 col-lg-10 col-xl-8">
-                    <div class="glass-card p-3 p-md-4 text-start">
-                        <h5 class="card-title mb-3 text-center">College Location</h5>
-                        <div class="map-container" id="collegeMap">
-                            <div class="map-skeleton">Loading map…</div>
-                            <iframe
-                                data-src="https://www.google.com/maps?q=SRM%20Valliammai%20Engineering%20College&output=embed"
-                                title="SRM Valliammai Engineering College location"
-                                referrerpolicy="no-referrer-when-downgrade"
-                                aria-label="Map showing SRM Valliammai Engineering College"></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- How to Reach -->
-            <div class="row mt-4 justify-content-center" data-aos="fade-up" data-aos-delay="800">
-                <div class="col-12 col-lg-10 col-xl-8">
-                    <div class="glass-card p-3 p-md-4 text-start">
-                        <h5 class="card-title mb-3 text-center">How to Reach SRM Valliammai Engineering College</h5>
-                        <div class="d-flex flex-column gap-3">
-                            <div>
-                                <h6 class="mb-2"><i class="bi bi-train-front me-2"></i>By Train</h6>
-                                <p class="mb-0 text-white-50" style="font-size: clamp(0.9rem, 3.4vw, 1rem); line-height: 1.7;">
-                                    Take any Chennai Beach – Tambaram – Chengalpattu suburban train and get down at
-                                    <strong>Potheri Railway Station</strong>. The college is just a 10-minute walk from the station.
-                                </p>
-                            </div>
-                            <div>
-                                <h6 class="mb-2"><i class="bi bi-bus-front me-2"></i>By Bus</h6>
-                                <p class="mb-0 text-white-50" style="font-size: clamp(0.9rem, 3.4vw, 1rem); line-height: 1.7;">
-                                    From different parts of Chennai, you can take MTC buses going towards Chengalpattu on GST Road.
-                                    Get down at <strong>VPT / Valliammai College</strong> stop. Some bus numbers are
-                                    <strong>500, 500A, 500D, 500E, 500W, 118, 118ET</strong>. The campus is a short walk from the stop.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Event Details Modal (with carousel) -->
-        <div class="modal fade" id="eventDetailModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content glass-card">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="eventModalLabel">Event Name</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div id="eventCarousel" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-inner" id="eventCarouselInner"></div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#eventCarousel" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#eventCarousel" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                    </div>
-                        <p class="text-white-50 mt-3" id="eventDetailsText"></p>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="d-flex flex-wrap gap-2 justify-content-center w-100">
-                            <a id="eventPdfBtn" href="#" target="_blank" class="btn btn-outline-light d-none">Download PDF</a>
-                            <a id="regBtn" href="#" target="_blank" class="btn btn-light fw-bold d-none">Register</a>
-                            <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <section id="about" class="content-section">
-            <h2 class="section-title text-center mb-5" data-aos="fade-up">About The Department</h2>
-            <div class="row justify-content-center g-4">
-                <div class="col-lg-6" data-aos="fade-right">
-                    <div class="glass-card p-4">
-                        <h4 class="card-title text-center"><i class="bi bi-eye-fill me-2"></i>Our Vision</h4>
-                        <p class="text-white-50 mt-3">To excel in the field of electronics and communication engineering and to develop highly competent technocrats with global intellectual qualities.</p>
-                    </div>
-                </div>
-                <div class="col-lg-6" data-aos="fade-left">
-                     <div class="glass-card p-4">
-                        <h4 class="card-title text-center"><i class="bi bi-bullseye me-2"></i>Our Mission</h4>
-                        <p class="text-white-50 mt-3">To educate the students with the state of art technologies to compete internationally, able to produce creative solutions to the society`s needs, conscious to the universal moral values, adherent to the professional ethical code.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="gallery" class="content-section">
-            <h2 class="section-title text-center mb-5" data-aos="fade-up">Gallery</h2>
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6" data-aos="fade-up">
-                    <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" data-img-src="https://placehold.co/1200x800/8e44ad/ffffff?text=Gallery+1">
-                        <img src="gal.jpg" alt="Gallery Image 1" loading="lazy" decoding="async" fetchpriority="low" width="600" height="400">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" data-img-src="https://placehold.co/1200x800/2980b9/ffffff?text=Gallery+2">
-                        <img src="gal1.jpg" alt="Gallery Image 2" loading="lazy" decoding="async" fetchpriority="low" width="600" height="400">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#galleryModal" data-img-src="https://placehold.co/1200x800/27ae60/ffffff?text=Gallery+3">
-                        <img src="gal2.jpg" alt="Gallery Image 3" loading="lazy" decoding="async" fetchpriority="low" width="600" height="400">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Gallery Modal -->
-        <div class="modal fade" id="galleryModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content glass-card">
-                    <div class="modal-body p-0 d-flex justify-content-center">
-                        <img id="galleryModalImage" src="gal2.jpg" alt="Gallery enlarged" style="max-width:100%; height:auto; border-radius: 12px;" decoding="async">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-light ms-auto" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <section id="hod" class="content-section">
-            <h2 class="section-title text-center mb-5" data-aos="fade-up">Convenors</h2>
-            <div class="row justify-content-center">
-                <div class="col-md-6 col-lg-4" data-aos="fade-up">
-                    <div class="person-circle">
-                        <img src="murugan.jpeg" alt="Photo of Head of Department" loading="lazy">
-                        <h5>Dr.M.Murugan</h5>
-                        <p class="role">Principal</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4" data-aos="fade-up">
-                    <div class="person-circle">
-                        <img src="hod.jpg" alt="Photo of Head of Department" loading="lazy">
-                        <h5>Dr.Komala James</h5>
-                        <p class="role">Professor & HOD-ECE</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="coordinators" class="content-section">
-            <h2 class="section-title text-center mb-5" data-aos="fade-up">Staff Coordinators</h2>
-            <div class="row g-5 justify-content-center">
-                <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="0">
-                    <div class="person-circle">
-                        <img src="sc1.jpg" alt="Photo of Priya Sharma" loading="lazy">
-                        <h5>Dr.G.UdhayaKumar</h5>
-                        <p class="role">Professor</p>
-                    </div>
-                </div>
-                
-                <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="person-circle">
-                        <img src="sc2.jpg" alt="Photo of Rohan Singh" loading="lazy">
-                        <h5>Mr.K.R.Ganesh</h5>
-                        <p class="role">Associate Professor</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="organizers" class="content-section">
-            <h2 class="section-title text-center mb-5" data-aos="fade-up">Student Coordinators</h2>
-            <div class="row justify-content-center" data-aos="fade-up">
-                <div class="col-12 col-lg-10 col-xl-8">
-                    <div class="glass-card p-3 p-md-4 text-start">
-                        <div class="d-flex flex-column gap-3">
-                            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center border-bottom pb-2">
-                                <div>
-                                    <h5 class="mb-1">A Akash 
-                                    </h5>
-                                    <div class="text-white-50">President</div>
-                                </div>
-                                <a class="link-light text-decoration-underline mt-1 mt-md-0" href="tel:+910000000001">+91 7358493551</a>
-                            </div>
-                            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center border-bottom pb-2">
-                                <div>
-                                    <h5 class="mb-1">Syed Owaise . A
-                                    </h5>
-                                    <div class="text-white-50">Vice President</div>
-                                </div>
-                                <a class="link-light text-decoration-underline mt-1 mt-md-0" href="tel:+910000000001">+91 7358373106
-                                </a>
-                            </div>
-                            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center border-bottom pb-2">
-                                <div>
-                                    <h5 class="mb-1">S V Nithin </h5>
-                                    <div class="text-white-50">Secretary</div>
-                                </div>
-                                <a class="link-light text-decoration-underline mt-1 mt-md-0" href="tel:+910000000001">+91 8220581103
-                                </a>
-                            </div>
-                            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center border-bottom pb-2">
-                                <div>
-                                    <h5 class="mb-1">T Nishanth 
-                                    </h5>
-                                    <div class="text-white-50">Joint Secretary</div>
-                                </div>
-                                <a class="link-light text-decoration-underline mt-1 mt-md-0" href="tel:+910000000001">+91 9344760681</a>
-                            </div>
-                            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center border-bottom pb-2">
-                                <div>
-                                    <h5 class="mb-1">R P Swastika
-                                    </h5>
-                                    <div class="text-white-50">Treasurer</div>
-                                </div>
-                                <a class="link-light text-decoration-underline mt-1 mt-md-0" href="tel:+910000000002">+91 9360934112</a>
-                            </div>
-                            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-                                <div>
-                                    <h5 class="mb-1">S Divyadharshini </h5>
-                                    <div class="text-white-50">Joint treasurer</div>
-                                </div>
-                                <a class="link-light text-decoration-underline mt-1 mt-md-0" href="tel:+910000000003">+91 9360969083</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        
-
-        <section id="developer" class="content-section">
-            <h2 class="section-title text-center mb-5" data-aos="fade-up">Web Developer</h2>
-            <div class="row justify-content-center">
-                <div class="col-md-6 col-lg-4" data-aos="fade-up">
-                    <div class="person-circle">
-                        <img src="web2.png" alt="Developer Photo" loading="lazy">
-                        <h5>J Giridharan </h5>
-                        <p class="role">Front-end Developer</p>
-                        <div class="mt-2">
-                            <a href="https://www.linkedin.com/in/giridharan-j/" target="_blank" rel="noopener noreferrer" class="link-light fs-4" aria-label="LinkedIn profile">
-                                <i class="bi bi-linkedin"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-    
-    <section id="contact" class="content-section">
-        <h2 class="section-title text-center mb-5">Contact Us</h2>
-        <div class="container">
-            <div class="row g-4 justify-content-center">
-                <div class="col-md-4 col-12">
-                    <div class="glass-card p-4 text-center">
-                        <h5 class="card-title"><i class="bi bi-envelope me-2"></i>Email</h5>
-                        <p class="card-text mb-2"><a href="mailto:tarasecesymp@gmail.com" class="link-light text-decoration-underline">tarasecesymp@gmail.com</a></p>
-                        <p class="card-text small mb-0"><a href="https://mail.google.com/mail/?view=cm&to=tarasecesymp@gmail.com" target="_blank" rel="noopener noreferrer" class="link-light text-decoration-underline">Open in Gmail</a></p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-12">
-                    <div class="glass-card p-4 text-center">
-                        <h5 class="card-title"><i class="bi bi-instagram me-2"></i>Instagram</h5>
-                        <p class="card-text"><a href="https://www.instagram.com/taras_2k25?igsh=MWoxbTlnaGZwdnEwbQ==" target="_blank" rel="noopener noreferrer" class="link-light text-decoration-underline">@taras_2k25</a></p>
-                </div>
-                </div>
-                <div class="col-md-4 col-12">
-                    <div class="glass-card p-4 text-center">
-                        <h5 class="card-title"><i class="bi bi-whatsapp me-2"></i>WhatsApp Group</h5>
-                        <p class="card-text"><a href="https://chat.whatsapp.com/LdWBMjFqgHHIxLvN9wcmbF?mode=ems_wa_t" target="_blank" rel="noopener noreferrer" class="link-light text-decoration-underline">Join the Group</a></p>
-            </div>
-        </div>
-    </div>
-            </div>
+      </div>
     </section>
-    
-   
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Ensure page opens at top (avoid jumping to anchors like #gallery)
-            if ('scrollRestoration' in history) {
-                history.scrollRestoration = 'manual';
-            }
-            // If URL has a hash (e.g., #gallery) on first load, strip it and go to top
-            if (location.hash) {
-                history.replaceState(null, '', location.pathname + location.search);
-            }
-            window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    <section id="schedule" class="section reveal">
+      <div class="container">
+        <div class="section-head">
+          <h2>Event Schedule</h2>
+        </div>
+        <div class="timeline">
+          <article class="timeline-item card">
+            <div class="timeline-node"></div>
+            <div>
+              <h3>Day 1 - April 10, 2026</h3>
+              <ul>
+                <li>Problem Statement Analysis</li>
+                <li>Initial Solution Approach (PPT Presentation)</li>
+              </ul>
+            </div>
+          </article>
+          <article class="timeline-item card">
+            <div class="timeline-node"></div>
+            <div>
+              <h3>Day 2 - April 11, 2026</h3>
+              <ul>
+                <li>Working Hardware Model / Prototype Demo</li>
+                <li>Mentoring Sessions and Final Evaluation</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-            const countdownDate = new Date("September 27, 2025 09:00:00").getTime();
-            // Countdown timer - updates every second for accurate display
-            const timerFunction = setInterval(function() {
-                const now = new Date().getTime();
-                const distance = countdownDate - now;
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    <section id="rules" class="section reveal">
+      <div class="container">
+        <div class="section-head">
+          <h2>Rules &amp; Eligibility</h2>
+        </div>
+        <div class="rules-grid">
+          <article class="card rules-card">
+            <h3>Eligibility</h3>
+            <ul>
+              <li>Open to UG/PG Students (Engineering / Technology / Science)</li>
+              <li>Teams of maximum 3 members</li>
+              <li>Interdisciplinary teams are encouraged</li>
+            </ul>
+          </article>
+          <article class="card rules-card">
+            <h3>Team Formation</h3>
+            <ul>
+              <li>Nominate one Team Leader</li>
+              <li>Register before the deadline</li>
+              <li>Choose any one of the 2 available Domains/Tracks</li>
+            </ul>
+          </article>
+          <article class="card rules-card">
+            <h3>Rules &amp; Conduct</h3>
+            <ul>
+              <li>Original work only - no plagiarism</li>
+              <li>Bring your own hardware components</li>
+              <li>Follow all campus rules</li>
+              <li>Misconduct or plagiarism leads to disqualification</li>
+            </ul>
+          </article>
+          <article class="card rules-card">
+            <h3>IP Rights &amp; Support</h3>
+            <ul>
+              <li>All IP rights remain with the team</li>
+              <li>Organizers may showcase projects with due credit</li>
+              <li>Internet and power supply will be provided</li>
+              <li>Food and snacks will be provided</li>
+            </ul>
+          </article>
+        </div>
+        <div class="info-strip">
+          BYOD: Laptop, Chargers, Extension Board | Dress Code: Formals + College ID | Food &amp; Snacks Provided | Registration: &#8377;600/team
+        </div>
+      </div>
+    </section>
 
-                if (distance > 0) {
-                    const daysEl = document.getElementById("days");
-                    const hoursEl = document.getElementById("hours");
-                    const minutesEl = document.getElementById("minutes");
-                    const secondsEl = document.getElementById("seconds");
-                    const ringDays = document.getElementById('ring-days');
-                    const ringHours = document.getElementById('ring-hours');
-                    const ringMinutes = document.getElementById('ring-minutes');
-                    const ringSeconds = document.getElementById('ring-seconds');
-                    
-                    if (daysEl) daysEl.innerText = days.toString().padStart(2, '0');
-                    if (hoursEl) hoursEl.innerText = hours.toString().padStart(2, '0');
-                    if (minutesEl) minutesEl.innerText = minutes.toString().padStart(2, '0');
-                    if (secondsEl) secondsEl.innerText = seconds.toString().padStart(2, '0');
+    <section id="faculty" class="section reveal">
+      <div class="container">
+        <div class="section-head">
+          <h2>Leadership &amp; Organizers</h2>
+        </div>
 
-                    // Update ring progress
-                    // days ring uses modulo 365 approximation
-                    const dayPct = ((days % 365) / 365) * 100;
-                    const hourPct = (hours / 24) * 100;
-                    const minutePct = (minutes / 60) * 100;
-                    const secondPct = (seconds / 60) * 100;
-                    if (ringDays) ringDays.style.setProperty('--pct', dayPct + '%');
-                    if (ringHours) ringHours.style.setProperty('--pct', hourPct + '%');
-                    if (ringMinutes) ringMinutes.style.setProperty('--pct', minutePct + '%');
-                    if (ringSeconds) ringSeconds.style.setProperty('--pct', secondPct + '%');
-                } else {
-                    clearInterval(timerFunction);
-                    const countdownEl = document.getElementById("countdown-timer");
-                    if (countdownEl) countdownEl.innerHTML = "<h4 class='text-white'>The event has started!</h4>";
-                }
-            }, 1000); // Updated to update every second (1000ms)
+        <div class="faculty-block leader-stack">
+          <article class="card faculty-card featured">
+            <p class="role">Principal</p>
+            <h3>Dr. M. Murugan</h3>
+          </article>
+          <article class="card faculty-card featured">
+            <p class="role">Vice Principal</p>
+            <h3>Dr. S. Visalakshi</h3>
+          </article>
+        </div>
 
-            const eventDetailModal = document.getElementById('eventDetailModal');
-            eventDetailModal.addEventListener('show.bs.modal', function (event) {
-                const button = event.relatedTarget;
-                const title = button.getAttribute('data-event-title');
-                const details = button.getAttribute('data-details');
-                const poster = button.getAttribute('data-poster') || '';
-                const img1 = button.getAttribute('data-img1');
-                const img2 = button.getAttribute('data-img2');
-                const img3 = button.getAttribute('data-img3');
-                const modalTitle = eventDetailModal.querySelector('#eventModalLabel');
-                const detailsText = eventDetailModal.querySelector('#eventDetailsText');
-                const carouselInner = eventDetailModal.querySelector('#eventCarouselInner');
-                const regBtn = eventDetailModal.querySelector('#regBtn');
-                const eventPdfBtn = eventDetailModal.querySelector('#eventPdfBtn');
-                modalTitle.textContent = title;
-                detailsText.textContent = details || '';
-                // Build carousel slides
-                carouselInner.innerHTML = '';
-                const images = [img1, img2, img3].filter(Boolean);
-                if (images.length === 0 && poster) images.push(poster);
-                images.forEach((src, idx) => {
-                    const div = document.createElement('div');
-                    div.className = 'carousel-item' + (idx === 0 ? ' active' : '');
-                    const img = document.createElement('img');
-                    img.src = src;
-                    img.alt = `${title} image ${idx+1}`;
-                    // Prefer eager/high-priority for the first slide for instant paint, lazy for the rest
-                    img.loading = idx === 0 ? 'eager' : 'lazy';
-                    img.decoding = 'async';
-                    if (idx === 0 && 'fetchPriority' in img) { img.fetchPriority = 'high'; } else if ('fetchPriority' in img) { img.fetchPriority = 'low'; }
-                    div.appendChild(img);
-                    carouselInner.appendChild(div);
-                });
-                // Attach PDF button if provided (e.g., paper presentation)
-                const pdfUrl = button.getAttribute('data-pdf');
-                if (pdfUrl) {
-                    eventPdfBtn.classList.remove('d-none');
-                    eventPdfBtn.href = pdfUrl;
-                    const label = button.getAttribute('data-pdf-label') || 'Download PDF';
-                    eventPdfBtn.textContent = label;
-                    eventPdfBtn.setAttribute('download', '');
-                } else {
-                    eventPdfBtn.classList.add('d-none');
-                }
+        <h3 class="subhead">Conveners</h3>
+        <div class="faculty-grid convener-grid">
+          <article class="card faculty-card"><p class="role">Convener</p><h4>Dr. Komala James</h4></article>
+          <article class="card faculty-card"><p class="role">Convener</p><h4>Dr. K. Elango</h4></article>
+          <article class="card faculty-card"><p class="role">Convener</p><h4>Dr. K. Ayyar</h4></article>
+          <article class="card faculty-card"><p class="role">Convener</p><h4>Dr. N. Usha Bhanu</h4></article>
+        </div>
 
-                // Show single Register button that opens Google Form
-                regBtn.classList.remove('d-none');
-                regBtn.classList.add('btn-register');
-                regBtn.setAttribute('href', googleFormUrl);
-                regBtn.setAttribute('target', '_blank');
-                regBtn.setAttribute('rel', 'noopener noreferrer');
-            });
+        <h3 class="subhead">Organizers</h3>
+        <div class="faculty-grid organizer-grid">
+          <article class="card faculty-card">
+            <p class="role">Organizer</p>
+            <h4>Dr. D. Judson</h4>
+            <a href="tel:+919841771388" class="phone-link">Call +91 98417 71388</a>
+          </article>
+          <article class="card faculty-card">
+            <p class="role">Organizer</p>
+            <h4>Dr. Simon Prabhu</h4>
+            <a href="tel:+919940463048" class="phone-link">Call +91 99404 63048</a>
+          </article>
+          <article class="card faculty-card"><p class="role">Organizer</p><h4>Dr. R. Issan Raj</h4></article>
+          <article class="card faculty-card"><p class="role">Organizer</p><h4>Mrs. R.V. Preetha</h4></article>
+          <article class="card faculty-card"><p class="role">Organizer</p><h4>Dr. J. Ganesan</h4></article>
+        </div>
+      </div>
+    </section>
 
-            // --- Gallery Modal Logic ---
-            const galleryModal = document.getElementById('galleryModal');
-            if (galleryModal) {
-            galleryModal.addEventListener('show.bs.modal', function (event) {
-                const galleryItem = event.relatedTarget;
-                const imgSrc = galleryItem.getAttribute('data-img-src');
-                const modalImage = document.getElementById('galleryModalImage');
-                    if (modalImage) { modalImage.src = imgSrc; }
-            });
-            }
+    <section id="contact" class="section reveal">
+      <div class="container">
+        <div class="section-head">
+          <h2>Get In Touch</h2>
+        </div>
+        <div class="contact-grid">
+          <article class="card contact-card">
+            <h3>Contact Persons</h3>
+            <p>Dr. D. Judson - <a href="tel:+919841771388">+91 98417 71388</a></p>
+            <p>Dr. Simon Prabhu - <a href="tel:+919940463048">+91 99404 63048</a></p>
+            <h4>Connect Online</h4>
+            <div class="social-links" aria-label="Follow and join channels">
+              <a class="social-chip" href="https://www.instagram.com/fabriquathon_2k26?igsh=b2tjb3BrdjdmeHds" target="_blank" rel="noopener noreferrer">Follow on Instagram</a>
+              <a class="social-chip" href="https://chat.whatsapp.com/FcITEVD1h7x4Wk2FZHWyM9?mode=gi_t" target="_blank" rel="noopener noreferrer">Join WhatsApp Group</a>
+              <a class="social-chip" href="mailto:fabriquathonsrmvec@gmail.com">Email Us</a>
+            </div>
+            <h4>Venue</h4>
+            <p>SRM Valliammai Engineering College,<br>Kattankulathur, Chengalpattu District,<br>Tamil Nadu - 603203</p>
+          </article>
+          <article class="card contact-card">
+            <h3>How to Reach</h3>
+            <ul>
+              <li>By Train: Potheri Railway Station (10-minute walk)</li>
+              <li>By Bus: GST Road buses - 500, 500A, 500D, 500E, 500W, 118, 118ET</li>
+            </ul>
+            <div class="map-wrap">
+              <iframe src="https://www.google.com/maps?q=SRM%20Valliammai%20Engineering%20College&output=embed" title="SRM Valliammai Engineering College map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-            if (window.AOS) {
-                AOS.init({ 
-                    once: true, 
-                    duration: 500, 
-                    offset: 100, 
-                    easing: 'ease-out',
-                    disable: 'mobile' // Disable animations on mobile for better performance
-                });
-            }
+    <section id="register" class="section cta-section reveal">
+      <div class="container cta-wrap">
+        <h2>Ready to Build Something Real?</h2>
+        <p>Register your team before the deadline. &#8377;600 per team.</p>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScSxUjaLibIrp03ZZbFOIlRafXk7la-5Qlm-nnh3OlXSlWJXA/viewform?usp=send_form" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large">Register Now</a>
+        <p class="note">Max 3 members per team | Bring your own hardware components</p>
+      </div>
+    </section>
+  </main>
 
-            // Performance optimization: Disable AOS on mobile devices
-            if (window.innerWidth <= 768) {
-                if (window.AOS) {
-                    AOS.refreshHard();
-                }
-            }
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <p class="footer-brand">FABRIQUATHON 2K26</p>
+        <p>National Level 24-Hrs Hardware Hackathon</p>
+        <p>SRM Valliammai Engineering College</p>
+        <p>ECE | EEE | E&amp;I | MDE</p>
+        <div class="footer-connect-box" aria-label="Social and mail links">
+          <p class="footer-connect-title">Follow / Join</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/fabriquathon_2k26?igsh=b2tjb3BrdjdmeHds" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://chat.whatsapp.com/FcITEVD1h7x4Wk2FZHWyM9?mode=gi_t" target="_blank" rel="noopener noreferrer">WhatsApp Group</a>
+            <a href="mailto:fabriquathonsrmvec@gmail.com">Email Us</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#schedule">Schedule</a>
+        <a href="#prize">Prize</a>
+        <a href="#rules">Rules</a>
+        <a href="#register">Register</a>
+      </div>
+    </div>
+    <p class="copyright">&copy; 2026 FABRIQUATHON. All rights reserved.</p>
+  </footer>
 
-            // Aggressive image preloading for better performance
-            const criticalImages = [
-                'taras.png',
-                'Paper.png', 
-                'cricket.png',
-                'Electrominds.png',
-                'bytebox.png',
-                'CircuitChase.png',
-                'th.png'
-            ];
+  <audio id="bgm" loop preload="auto" autoplay playsinline aria-hidden="true">
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
 
-            // Preload critical images immediately
-            criticalImages.forEach(src => {
-                const img = new Image();
-                img.src = src;
-                img.loading = 'eager';
-                img.decoding = 'async';
-            });
+  <button id="musicToggle" class="music-toggle" type="button" aria-pressed="false" aria-label="Toggle background music">Music: Off</button>
 
-            // Optimize image loading for mobile
-            if ('IntersectionObserver' in window) {
-                const imageObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const img = entry.target;
-                            if (img.dataset.src) {
-                                img.src = img.dataset.src;
-                                img.removeAttribute('data-src');
-                                imageObserver.unobserve(img);
-                            }
-                        }
-                    });
-                }, {
-                    rootMargin: '100px' // Increased margin for earlier loading
-                });
-
-                // Observe all lazy images
-                document.querySelectorAll('img[data-src]').forEach(img => {
-                    imageObserver.observe(img);
-                });
-            }
-
-            // Reduce motion for users who prefer it
-            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.documentElement.style.setProperty('--animation-duration', '0.01ms');
-                document.documentElement.style.setProperty('--animation-iteration-count', '1');
-            }
-
-            // Lazy-load Google Map when visible or on first interaction
-            const mapContainer = document.getElementById('collegeMap');
-            if (mapContainer) {
-                const iframe = mapContainer.querySelector('iframe');
-                const skeleton = mapContainer.querySelector('.map-skeleton');
-                const loadMap = () => {
-                    if (!iframe.getAttribute('src')) {
-                        const dataSrc = iframe.getAttribute('data-src');
-                        if (dataSrc) iframe.setAttribute('src', dataSrc);
-                        if (skeleton) skeleton.style.display = 'none';
-                    }
-                };
-                // IntersectionObserver for visibility
-                if ('IntersectionObserver' in window) {
-                    const obs = new IntersectionObserver((entries) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                loadMap();
-                                obs.disconnect();
-                            }
-                        });
-                    }, { rootMargin: '200px' });
-                    obs.observe(mapContainer);
-                } else {
-                    // Fallback: load on first scroll or click
-                    const onFirst = () => { loadMap(); window.removeEventListener('scroll', onFirst); mapContainer.removeEventListener('click', onFirst); };
-                    window.addEventListener('scroll', onFirst, { once: true });
-                    mapContainer.addEventListener('click', onFirst, { once: true });
-                }
-            }
-
-            // Registration modal logic
-            // Global Google Form URL used for all registrations
-            const googleFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSf9GPGvxOWBTQRbOTst56Y7-knxAWrxfC8pE3H6WX80BLbZow/viewform?usp=header';
-
-            // Remove old role-based registration modal logic (not used anymore)
-            const regSelectModal = document.getElementById('regSelectModal');
-            const eventCheckboxList = document.getElementById('eventCheckboxList');
-            const regContinueBtn = document.getElementById('regContinueBtn');
-            const regRoleNote = document.getElementById('regRoleNote');
-            let currentRole = 'external';
-            const allEvents = [
-                { id: 'paper', label: 'Paper Presentation' },
-                { id: 'cricket', label: 'Cricket Draft' },
-                { id: 'electro', label: 'Electro Minds' },
-                { id: 'bytebox', label: 'Byte Box' },
-                { id: 'circuit', label: 'Circuit Chase' },
-                { id: 'techhint', label: 'Tech Hint' },
-            ];
-
-            const buildCheckboxes = (role) => {
-                eventCheckboxList.innerHTML = '';
-                const items = role === 'internal' ? allEvents.filter(e => e.id === 'paper') : allEvents;
-                regRoleNote.textContent = role === 'internal'
-                    ? 'Internal registration: Only Paper Presentation is available.'
-                    : 'External registration: Select up to 3 events.';
-                items.forEach(evt => {
-                    const id = `evt_${evt.id}`;
-                    const wrapper = document.createElement('div');
-                    wrapper.className = 'form-check text-start p-2 rounded-3';
-                    wrapper.style.background = 'rgba(255,255,255,0.06)';
-                    wrapper.style.border = '1px solid rgba(255,255,255,0.15)';
-                    const input = document.createElement('input');
-                    input.className = 'form-check-input';
-                    input.type = 'checkbox';
-                    input.value = evt.id;
-                    input.id = id;
-                    const label = document.createElement('label');
-                    label.className = 'form-check-label ms-2';
-                    label.setAttribute('for', id);
-                    label.textContent = evt.label;
-                    wrapper.appendChild(input);
-                    wrapper.appendChild(label);
-                    eventCheckboxList.appendChild(wrapper);
-                });
-                updateContinueState();
-            };
-
-            const updateContinueState = () => {
-                const checked = eventCheckboxList.querySelectorAll('input[type="checkbox"]:checked');
-                const maxMsg = document.getElementById('maxSelectMsg');
-                if (currentRole === 'internal') {
-                    regContinueBtn.disabled = checked.length !== 1; // must pick the only option
-                    if (maxMsg) maxMsg.classList.add('d-none');
-                } else {
-                    regContinueBtn.disabled = checked.length < 1 || checked.length > 3;
-                    if (maxMsg) maxMsg.classList.toggle('d-none', checked.length <= 3);
-                }
-            };
-
-            regSelectModal.addEventListener('show.bs.modal', (e) => {
-                const btn = e.relatedTarget;
-                // role can be set via data-role or via pre-set attribute from event modal
-                const modalRole = regSelectModal.getAttribute('data-role');
-                currentRole = (btn?.getAttribute('data-role') || modalRole) === 'internal' ? 'internal' : 'external';
-                buildCheckboxes(currentRole);
-
-                // Preselect event if provided
-                const pre = regSelectModal.getAttribute('data-preselect');
-                if (pre) {
-                    // map event titles to ids
-                    const titleToId = new Map(allEvents.map(e => [e.label.toLowerCase(), e.id]));
-                    const evtId = titleToId.get(pre);
-                    if (evtId) {
-                        const input = eventCheckboxList.querySelector(`input[value="${evtId}"]`);
-                        if (input) input.checked = true;
-                    }
-                }
-                updateContinueState();
-            });
-
-            eventCheckboxList.addEventListener('change', () => {
-                // enforce max 3 by disabling the rest
-                const checkboxes = eventCheckboxList.querySelectorAll('input[type="checkbox"]');
-                const checked = Array.from(checkboxes).filter(c => c.checked);
-                const over = checked.length >= 3 && currentRole !== 'internal';
-                checkboxes.forEach(c => {
-                    if (!c.checked) c.disabled = over;
-                });
-                updateContinueState();
-            });
-
-            regContinueBtn.addEventListener('click', () => {
-                window.open(googleFormUrl, '_blank', 'noopener');
-            });
-        });
-    </script>
+  <script src="script.js"></script>
 </body>
 </html>
+
