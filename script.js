@@ -8,10 +8,27 @@ const musicToggle = document.getElementById("musicToggle");
 const isTouchDevice = window.matchMedia("(pointer: coarse)").matches || navigator.maxTouchPoints > 0;
 
 if (bgm) {
-  bgm.volume = 0.45;
-  bgm.muted = false;
+  const MUSIC_VOLUME = 0.45;
+  bgm.volume = MUSIC_VOLUME;
   bgm.preload = "auto";
+
+  const preloadSrc = (bgm.currentSrc || bgm.getAttribute("src") || "music.mp3").trim();
+  if (preloadSrc) {
+    fetch(preloadSrc, { cache: "force-cache" }).catch(() => {
+      // Ignore preload fetch errors; media element preload continues independently.
+    });
+  }
+
   bgm.load();
+
+  // Attempt immediate playback at script init (browser may respect this timing).
+  (function earlyPlayAttempt() {
+    if (bgm.paused) {
+      bgm.play().catch(() => {
+        // Expected if browser blocks - will retry on lifecycle + unlock events.
+      });
+    }
+  })();
 
   // Force default ON for every fresh page open.
   let wantsMusic = true;
@@ -19,6 +36,17 @@ if (bgm) {
   let autoStartTryCount = 0;
   let autoStartTimer = null;
   let musicGateEl = null;
+
+  const tryUnmuteBootstrapAudio = () => {
+    if (!wantsMusic || bgm.paused || !bgm.muted) return;
+
+    bgm.muted = false;
+    bgm.volume = MUSIC_VOLUME;
+    bgm.play().catch(() => {
+      // If browser still blocks audible playback, keep muted bootstrap running.
+      bgm.muted = true;
+    });
+  };
 
   const setMusicButtonState = () => {
     if (!musicToggle) return;
@@ -77,27 +105,43 @@ if (bgm) {
       return Promise.resolve(false);
     }
 
+    // Ensure audible volume and unmuted for playback.
+    bgm.muted = false;
+    bgm.volume = MUSIC_VOLUME;
+
     return bgm.play().then(() => {
       setMusicButtonState();
       clearAutoStartTimer();
       hideMusicGate();
       return true;
     }).catch(() => {
-      // Some browsers require user interaction before audible audio can play.
-      setMusicButtonState();
-      showMusicGate();
+      // Fallback: browser may have blocked audible autoplay.
+      // Try muted bootstrap if still paused.
+      if (bgm.paused) {
+        bgm.muted = true;
+        return bgm.play().then(() => {
+          setMusicButtonState();
+          window.setTimeout(tryUnmuteBootstrapAudio, 100);
+          return true;
+        }).catch(() => {
+          // Full block: wait for user interaction.
+          setMusicButtonState();
+          showMusicGate();
+          return false;
+        });
+      }
       return false;
     });
   };
 
-  const scheduleAutoStartRetry = (delayMs = 900) => {
+  const scheduleAutoStartRetry = (delayMs = 220) => {
     if (!wantsMusic || !bgm.paused || autoStartTryCount >= MAX_AUTOSTART_TRIES) return;
     clearAutoStartTimer();
     autoStartTimer = window.setTimeout(() => {
       autoStartTryCount += 1;
       startMedia().then((started) => {
         if (!started && wantsMusic && bgm.paused) {
-          scheduleAutoStartRetry(1200);
+          scheduleAutoStartRetry(320);
         }
       });
     }, delayMs);
@@ -123,19 +167,35 @@ if (bgm) {
     }
   });
 
-  // Fallback: start on first user interaction if blocked.
+  const removeUnlockListeners = () => {
+    window.removeEventListener("pointerdown", unlockAudio);
+    window.removeEventListener("touchstart", unlockAudio);
+    window.removeEventListener("touchend", unlockAudio);
+    window.removeEventListener("keydown", unlockAudio);
+    document.removeEventListener("click", unlockAudio, true);
+    window.removeEventListener("mousedown", unlockAudio);
+  };
+
+  // Fallback: start on first user interaction if browser blocked autoplay.
   const unlockAudio = () => {
     wantsMusic = true;
     autoStartTryCount = 0;
-    startMedia();
-    ["pointerdown", "keydown", "touchstart", "touchend", "click"].forEach((eventName) => {
-      window.removeEventListener(eventName, unlockAudio);
+    startMedia().then((started) => {
+      if (started) {
+        removeUnlockListeners();
+      }
     });
   };
 
-  ["pointerdown", "keydown", "touchstart", "touchend", "click"].forEach((eventName) => {
-    window.addEventListener(eventName, unlockAudio, { once: true, passive: true });
-  });
+  window.addEventListener("pointerdown", unlockAudio, { passive: true });
+  window.addEventListener("touchstart", unlockAudio, { passive: true });
+  window.addEventListener("touchend", unlockAudio, { passive: true });
+  window.addEventListener("mousedown", unlockAudio);
+  window.addEventListener("keydown", unlockAudio);
+  document.addEventListener("click", unlockAudio, true);
+
+  window.addEventListener("pointerdown", tryUnmuteBootstrapAudio, { passive: true });
+  window.addEventListener("keydown", tryUnmuteBootstrapAudio);
 
   if (musicToggle) {
     musicToggle.addEventListener("click", () => {
@@ -168,23 +228,32 @@ if (bgm) {
   bgm.addEventListener("pause", () => {
     setMusicButtonState();
     if (wantsMusic) {
-      scheduleAutoStartRetry(700);
+      scheduleAutoStartRetry(220);
     }
   });
+  bgm.addEventListener("play", tryUnmuteBootstrapAudio);
   ["loadeddata", "canplay", "canplaythrough"].forEach((eventName) => {
     bgm.addEventListener(eventName, () => {
       if (wantsMusic && bgm.paused) {
         tryStartOnLifecycle();
+      } else {
+        tryUnmuteBootstrapAudio();
       }
     });
   });
   ["stalled", "waiting", "suspend"].forEach((eventName) => {
     bgm.addEventListener(eventName, () => {
       if (wantsMusic && bgm.paused) {
-        scheduleAutoStartRetry(1300);
+        scheduleAutoStartRetry(400);
       }
     });
   });
+  // Aggressive startup: try immediately, then lifecycle, then user interaction.
+  window.setTimeout(() => {
+    if (bgm.paused && wantsMusic) {
+      tryStartOnLifecycle();
+    }
+  }, 50);
   setMusicButtonState();
 }
 
