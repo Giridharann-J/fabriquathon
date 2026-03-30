@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Student Team of FABRIQUATHON 2K26.">
+  <title>Student Team | FABRIQUATHON 2K26</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .student-team-page {
+      min-height: 100vh;
+      padding-top: 5.8rem;
+    }
+
+    .student-header {
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .back-link {
+      text-decoration: none;
+      color: var(--accent);
+      border: 1px solid rgba(107, 227, 255, 0.58);
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      background: rgba(10, 24, 44, 0.55);
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .team-card {
+      text-align: center;
+      padding: 1.1rem;
+    }
+
+    .team-photo {
+      width: 94px;
+      height: 94px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(107, 227, 255, 0.72);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.38);
+      margin-bottom: 0.8rem;
+    }
+
+    .team-role {
+      margin: 0;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .team-name {
+      margin: 0.35rem 0 0.1rem;
+      font-size: 1rem;
+    }
+
+    .team-meta {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 1024px) {
+      .team-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .student-team-page {
+        padding-top: 5.4rem;
+      }
+
+      .team-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 480px) {
+      .student-team-page {
+        padding-top: 5.1rem;
+      }
+
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-video" aria-hidden="true">
+    <video autoplay muted loop playsinline>
+      <source src="bull background.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <nav class="navbar" id="navbar">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand">FABRIQUATHON 2K26</a>
+      <a href="index.html#faculty" class="back-link">Back to Main Page</a>
+    </div>
+  </nav>
+
+  <main class="student-team-page section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Student Team</h2>
+        <p>Student leadership and coordinators for FABRIQUATHON 2K26.</p>
+      </div>
+
+      <h3 class="subhead">Committee Members</h3>
+      <section class="team-grid" aria-label="Student coordinators and designations">
+        <article class="card team-card">
+          <img src="logo.jpeg" alt="Photo of Mr. Abishek Prasad C S" class="team-photo">
+          <p class="team-role">President</p>
+          <h4 class="team-name">Mr. Abishek Prasad C S</h4>
+          <p class="team-meta">4th Year ECE</p>
+          <a href="tel:+919944617503" class="phone-link">Call +91 99446 17503</a>
+        </article>
+
+        <article class="card team-card">
+          <img src="logo.jpeg" alt="Photo of Mr. Dhinesh M" class="team-photo">
+          <p class="team-role">Student Convener</p>
+          <h4 class="team-name">Mr. Dhinesh M</h4>
+          <p class="team-meta">4th Year ECE</p>
+          <a href="tel:+919524964280" class="phone-link">Call +91 95249 64280</a>
+        </article>
+
+        <article class="card team-card">
+          <img src="logo.jpeg" alt="Photo of Mr. Dhinesh K" class="team-photo">
+          <p class="team-role">Student Convener</p>
+          <h4 class="team-name">Mr. Dhinesh K</h4>
+          <p class="team-meta">4th Year ECE</p>
+          <a href="tel:+919786008852" class="phone-link">Call +91 97860 08852</a>
+        </article>
+
+        <article class="card team-card">
+          <img src="logo.jpeg" alt="Photo of Mr. Giridharan J" class="team-photo">
+          <p class="team-role">Student Convener</p>
+          <h4 class="team-name">Mr. Giridharan J</h4>
+          <p class="team-meta">4th Year ECE</p>
+        </article>
+
+        <article class="card team-card">
+          <img src="logo.jpeg" alt="Photo of Mr. Moulee P T" class="team-photo">
+          <p class="team-role">Student Convener</p>
+          <h4 class="team-name">Mr. Moulee P T</h4>
+          <p class="team-meta">4th Year EIE</p>
+        </article>
+
+        <article class="card team-card">
+          <img src="logo.jpeg" alt="Photo of Richardson" class="team-photo">
+          <p class="team-role">Student Convener</p>
+          <h4 class="team-name">Richardson</h4>
+          <p class="team-meta">Core Team</p>
+          <a href="tel:+917338802304" class="phone-link">Call +91 73388 02304</a>
+        </article>
+
+        <article class="card team-card">
+          <img src="logo.jpeg" alt="Photo of Mr. Krishna" class="team-photo">
+          <p class="team-role">Treasurer</p>
+          <h4 class="team-name">Mr. Krishna</h4>
+          <p class="team-meta">4th Year EIE</p>
+          <a href="tel:+919345948352" class="phone-link">Call +91 93459 48352</a>
+        </article>
+
+        <article class="card team-card">
+          <img src="logo.jpeg" alt="Photo of Mr. Bharath V" class="team-photo">
+          <p class="team-role">Student Coordinator</p>
+          <h4 class="team-name">Mr. Bharath V</h4>
+          <p class="team-meta">3rd Year ECE</p>
+          <a href="tel:+918248529426" class="phone-link">Call +91 82485 29426</a>
+        </article>
+
+        <article class="card team-card">
+          <img src="logo.jpeg" alt="Photo of Mr. Boopathi Raj G" class="team-photo">
+          <p class="team-role">Student Coordinator</p>
+          <h4 class="team-name">Mr. Boopathi Raj G</h4>
+          <p class="team-meta">3rd Year ECE</p>
+          <a href="tel:+916380952721" class="phone-link">Call +91 63809 52721</a>
+        </article>
+
+        <article class="card team-card">
+          <img src="logo.jpeg" alt="Photo of Mr. Arun Kumar N" class="team-photo">
+          <p class="team-role">Student Coordinator</p>
+          <h4 class="team-name">Mr. Arun Kumar N</h4>
+          <p class="team-meta">3rd Year ECE</p>
+          <a href="tel:+919962043906" class="phone-link">Call +91 99620 43906</a>
+        </article>
+
+        <article class="card team-card">
+          <img src="logo.jpeg" alt="Photo of Mr. Gokul V" class="team-photo">
+          <p class="team-role">Student Coordinator</p>
+          <h4 class="team-name">Mr. Gokul V</h4>
+          <p class="team-meta">3rd Year ECE</p>
+        </article>
+
+        <article class="card team-card">
+          <img src="logo.jpeg" alt="Photo of Mr. BhuvanRaj S" class="team-photo">
+          <p class="team-role">Student Coordinator</p>
+          <h4 class="team-name">Mr. BhuvanRaj S</h4>
+          <p class="team-meta">3rd Year ECE</p>
+        </article>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

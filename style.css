@@ -801,6 +801,17 @@ main .section {
   font-size: 0.88rem;
 }
 
+.student-team-cta {
+  margin-top: 0.2rem;
+  text-align: center;
+  padding: 1.2rem;
+}
+
+.student-team-cta p {
+  margin: 0 0 0.9rem;
+  color: var(--text-soft);
+}
+
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1151,6 +1162,7 @@ main .section {
     right: 0;
     top: 70px;
     display: grid;
+    gap: 0.45rem;
     background: rgba(6, 14, 28, 0.97);
     border-bottom: 1px solid rgba(107, 227, 255, 0.4);
     border-radius: 0 0 16px 16px;
@@ -1160,6 +1172,8 @@ main .section {
     opacity: 0;
     transition: transform 0.2s ease, opacity 0.2s ease;
     padding: 0.9rem 1rem 1rem;
+    max-height: calc(100dvh - 76px);
+    overflow-y: auto;
   }
 
   .nav-menu.open {
@@ -1170,6 +1184,9 @@ main .section {
   .nav-menu a {
     padding: 0.6rem 0.75rem;
     border-radius: 10px;
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
   }
 
   .nav-menu a:not(.btn-register) {
@@ -1188,6 +1205,15 @@ main .section {
     margin-top: 0.5rem;
     margin-left: 0;
     text-align: center;
+  }
+}
+
+@media (max-width: 1140px) and (max-height: 700px) {
+  .nav-menu {
+    max-height: calc(100dvh - 66px);
+    top: 64px;
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
   }
 }
 
