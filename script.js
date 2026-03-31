@@ -381,7 +381,7 @@ function upgradeStudentCards() {
 
   if (!studentCards.length) return;
 
-  const defaultImage = "logo.jpeg";
+  const defaultImage = "noimg.jpeg";
 
   function splitLongName(name) {
     if (name.length <= 18 || !name.includes(" ")) {
@@ -401,6 +401,7 @@ function upgradeStudentCards() {
     const roleEl = card.querySelector(".role");
     const metaEl = Array.from(card.querySelectorAll("p")).find((p) => !p.classList.contains("role"));
     const phoneEl = card.querySelector(".phone-link");
+    const customImage = (card.getAttribute("data-image") || "").trim();
 
     const name = nameEl ? nameEl.textContent.trim() : "Student Member";
     const role = roleEl ? roleEl.textContent.trim() : "Student Team";
@@ -416,9 +417,13 @@ function upgradeStudentCards() {
 
     const image = document.createElement("img");
     image.className = "student-card-image";
-    image.src = defaultImage;
+    image.src = customImage || defaultImage;
     image.alt = name;
     image.loading = "lazy";
+    image.addEventListener("error", () => {
+      if (image.src.includes(defaultImage)) return;
+      image.src = defaultImage;
+    });
 
     const overlay = document.createElement("div");
     overlay.className = "student-card-overlay";
