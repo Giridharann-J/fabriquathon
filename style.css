@@ -334,11 +334,10 @@ main .section {
 /* Sponsors Bar */
 .sponsors-bar {
   padding: 2rem 0;
-  background: linear-gradient(135deg, rgba(20, 40, 70, 0.8), rgba(15, 35, 65, 0.8));
-  border-bottom: 2px solid rgba(107, 227, 255, 0.4);
-  border-top: 2px solid rgba(107, 227, 255, 0.4);
+  background: transparent;
+  border: none;
   margin-top: 86px;
-  box-shadow: 0 0 20px rgba(107, 227, 255, 0.15), inset 0 0 20px rgba(107, 227, 255, 0.05);
+  box-shadow: none;
 }
 
 .sponsors-grid {
@@ -355,6 +354,7 @@ main .section {
   align-items: center;
   gap: 0.8rem;
   transition: transform 0.3s ease;
+  padding: 0;
 }
 
 .sponsor-item:hover {
@@ -365,25 +365,24 @@ main .section {
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 220px;
+  max-width: 200px;
   transition: transform 0.3s ease, filter 0.3s ease;
-  padding: 0.8rem;
-  border-radius: 8px;
-  background: rgba(107, 227, 255, 0.08);
-  border: 1px solid rgba(107, 227, 255, 0.2);
+  padding: 0.5rem 0.75rem;
+  border-radius: 12px;
+  background: rgba(10, 28, 52, 0.72);
+  border: 1px solid rgba(107, 227, 255, 0.42);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(107, 227, 255, 0.1);
 }
 
 .sponsor-logo img {
-  max-height: 120px;
+  max-height: 95px;
   width: auto;
   filter: brightness(1.2) contrast(1.1);
 }
 
 .sponsor-logo:hover {
-  transform: scale(1.08);
+  transform: scale(1.04);
   filter: brightness(1.4) contrast(1.15) drop-shadow(0 0 15px rgba(107, 227, 255, 0.4));
-  border-color: rgba(107, 227, 255, 0.6);
-  background: rgba(107, 227, 255, 0.15);
 }
 
 .sponsor-name {
@@ -400,8 +399,8 @@ main .section {
 .hero {
   min-height: 100vh;
   display: flex;
-  align-items: center;
-  padding-top: 6rem;
+  align-items: flex-start;
+  padding-top: 1.25rem;
 }
 
 #home .hero .container {
@@ -1290,7 +1289,7 @@ main .section {
 
   .hero {
     min-height: auto;
-    padding-top: 6.4rem;
+    padding-top: 1rem;
   }
 
   .hero-grid,
@@ -1324,6 +1323,10 @@ main .section {
 
   .nav-wrap {
     min-height: 74px;
+  }
+
+  .sponsors-bar {
+    margin-top: 74px;
   }
 
   .hero-title {
@@ -1449,7 +1452,7 @@ main .section {
 
 @media (max-width: 640px) {
   .hero {
-    padding-top: 5.7rem;
+    padding-top: 0.8rem;
   }
 
   .sponsors-bar {
@@ -1462,15 +1465,17 @@ main .section {
 
   .sponsor-item {
     gap: 0.6rem;
+    width: auto;
+    padding: 0;
   }
 
   .sponsor-logo {
-    max-width: 150px;
-    padding: 0.6rem;
+    max-width: 160px;
+    padding: 0.4rem 0.55rem;
   }
 
   .sponsor-logo img {
-    max-height: 90px;
+    max-height: 80px;
   }
 
   .sponsor-name {
@@ -1581,6 +1586,23 @@ main .section {
 
   .prize-callout {
     font-size: 1.55rem;
+  }
+
+  .sponsors-grid {
+    gap: 1.1rem;
+  }
+
+  .sponsor-logo {
+    max-width: 140px;
+    padding: 0.35rem 0.45rem;
+  }
+
+  .sponsor-logo img {
+    max-height: 72px;
+  }
+
+  .sponsor-name {
+    font-size: 0.86rem;
   }
 
   .map-wrap iframe {
