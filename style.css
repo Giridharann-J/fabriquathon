@@ -932,6 +932,7 @@ main .section {
 .committee-column {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1rem;
 }
 
@@ -954,6 +955,7 @@ main .section {
 
 .student-profile-card {
   padding: 0;
+  width: min(100%, 290px);
   overflow: hidden;
   border-radius: 1.2rem;
   border: 1px solid rgba(72, 72, 71, 0.6);
@@ -961,9 +963,17 @@ main .section {
   box-shadow: 0 0 42px -16px rgba(235, 0, 0, 0.4);
 }
 
+#faculty .student-president-grid .student-profile-card,
+#faculty .student-convener-grid .student-profile-card,
+#faculty .committee-layout .student-profile-card,
+#faculty .committee-extra-grid .student-profile-card {
+  flex: 0 1 290px;
+  max-width: 290px;
+}
+
 .student-card-visual {
   position: relative;
-  height: 21.5rem;
+  height: 18.5rem;
   overflow: hidden;
 }
 

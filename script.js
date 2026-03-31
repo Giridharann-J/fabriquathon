@@ -383,6 +383,19 @@ function upgradeStudentCards() {
 
   const defaultImage = "logo.jpeg";
 
+  function splitLongName(name) {
+    if (name.length <= 18 || !name.includes(" ")) {
+      return [name];
+    }
+
+    const lastSpaceIndex = name.lastIndexOf(" ");
+    if (lastSpaceIndex <= 0 || lastSpaceIndex >= name.length - 1) {
+      return [name];
+    }
+
+    return [name.slice(0, lastSpaceIndex), name.slice(lastSpaceIndex + 1)];
+  }
+
   studentCards.forEach((card) => {
     const nameEl = card.querySelector("h4, h3");
     const roleEl = card.querySelector(".role");
@@ -415,7 +428,13 @@ function upgradeStudentCards() {
 
     const title = document.createElement("h4");
     title.className = "student-card-name";
-    title.textContent = name;
+    const nameParts = splitLongName(name);
+    nameParts.forEach((part, index) => {
+      title.append(document.createTextNode(part));
+      if (index < nameParts.length - 1) {
+        title.append(document.createElement("br"));
+      }
+    });
 
     const subtitle = document.createElement("p");
     subtitle.className = "student-card-subtitle";
