@@ -357,7 +357,7 @@ main .section {
 
 .sponsors-label h3 {
   margin: 0;
-  font-size: clamp(1rem, 1.7vw, 1.35rem);
+  font-size: clamp(1.35rem, 2.6vw, 2rem);
   color: var(--text);
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -908,6 +908,21 @@ main .section {
   color: var(--text-soft);
 }
 
+.student-president-grid .faculty-card {
+  flex: 1 1 min(100%, 520px);
+  max-width: 520px;
+}
+
+.student-convener-grid .faculty-card {
+  flex: 1 1 calc(33.333% - 0.7rem);
+  max-width: calc(33.333% - 0.7rem);
+}
+
+.student-coordinator-grid .faculty-card {
+  flex: 1 1 calc(33.333% - 0.7rem);
+  max-width: calc(33.333% - 0.7rem);
+}
+
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1341,7 +1356,9 @@ main .section {
   }
 
   .organizer-grid .faculty-card,
-  .convener-grid .faculty-card {
+  .convener-grid .faculty-card,
+  .student-convener-grid .faculty-card,
+  .student-coordinator-grid .faculty-card {
     flex-basis: calc(50% - 0.5rem);
     max-width: calc(50% - 0.5rem);
   }
@@ -1392,7 +1409,9 @@ main .section {
   }
 
   .organizer-grid .faculty-card,
-  .convener-grid .faculty-card {
+  .convener-grid .faculty-card,
+  .student-convener-grid .faculty-card,
+  .student-coordinator-grid .faculty-card {
     flex-basis: calc(50% - 0.5rem);
     max-width: calc(50% - 0.5rem);
   }
@@ -1431,7 +1450,10 @@ main .section {
   }
 
   .organizer-grid .faculty-card,
-  .convener-grid .faculty-card {
+  .convener-grid .faculty-card,
+  .student-convener-grid .faculty-card,
+  .student-coordinator-grid .faculty-card,
+  .student-president-grid .faculty-card {
     flex-basis: 100%;
     max-width: 100%;
   }
