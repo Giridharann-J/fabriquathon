@@ -331,6 +331,72 @@ main .section {
   font-size: 1.05rem;
 }
 
+/* Sponsors Bar */
+.sponsors-bar {
+  padding: 2rem 0;
+  background: linear-gradient(135deg, rgba(20, 40, 70, 0.8), rgba(15, 35, 65, 0.8));
+  border-bottom: 2px solid rgba(107, 227, 255, 0.4);
+  border-top: 2px solid rgba(107, 227, 255, 0.4);
+  margin-top: 86px;
+  box-shadow: 0 0 20px rgba(107, 227, 255, 0.15), inset 0 0 20px rgba(107, 227, 255, 0.05);
+}
+
+.sponsors-grid {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.sponsor-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+.sponsor-item:hover {
+  transform: translateY(-5px);
+}
+
+.sponsor-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 220px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  padding: 0.8rem;
+  border-radius: 8px;
+  background: rgba(107, 227, 255, 0.08);
+  border: 1px solid rgba(107, 227, 255, 0.2);
+}
+
+.sponsor-logo img {
+  max-height: 120px;
+  width: auto;
+  filter: brightness(1.2) contrast(1.1);
+}
+
+.sponsor-logo:hover {
+  transform: scale(1.08);
+  filter: brightness(1.4) contrast(1.15) drop-shadow(0 0 15px rgba(107, 227, 255, 0.4));
+  border-color: rgba(107, 227, 255, 0.6);
+  background: rgba(107, 227, 255, 0.15);
+}
+
+.sponsor-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--cyan);
+  margin: 0;
+  text-align: center;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(107, 227, 255, 0.3);
+}
+
 .hero {
   min-height: 100vh;
   display: flex;
@@ -1384,6 +1450,31 @@ main .section {
 @media (max-width: 640px) {
   .hero {
     padding-top: 5.7rem;
+  }
+
+  .sponsors-bar {
+    padding: 1.5rem 0;
+  }
+
+  .sponsors-grid {
+    gap: 2rem;
+  }
+
+  .sponsor-item {
+    gap: 0.6rem;
+  }
+
+  .sponsor-logo {
+    max-width: 150px;
+    padding: 0.6rem;
+  }
+
+  .sponsor-logo img {
+    max-height: 90px;
+  }
+
+  .sponsor-name {
+    font-size: 0.95rem;
   }
 
   .eyebrow {
