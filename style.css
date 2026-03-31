@@ -924,20 +924,20 @@ main .section {
 }
 
 .committee-layout {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
 }
 
 .committee-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
+  display: contents;
 }
 
 .committee-column .committee-card {
-  width: 100%;
+  flex: 1 1 calc(33.333% - 0.7rem);
+  max-width: calc(33.333% - 0.7rem);
+  width: auto;
 }
 
 .committee-extra-grid {
@@ -1545,13 +1545,14 @@ main .section {
   .convener-grid .faculty-card,
   .student-convener-grid .faculty-card,
   .student-coordinator-grid .faculty-card,
+  .committee-layout .committee-card,
   .committee-extra-grid .committee-card {
     flex-basis: calc(50% - 0.5rem);
     max-width: calc(50% - 0.5rem);
   }
 
   .committee-layout {
-    grid-template-columns: 1fr;
+    justify-content: center;
   }
 }
 
@@ -1603,13 +1604,14 @@ main .section {
   .convener-grid .faculty-card,
   .student-convener-grid .faculty-card,
   .student-coordinator-grid .faculty-card,
+  .committee-layout .committee-card,
   .committee-extra-grid .committee-card {
     flex-basis: calc(50% - 0.5rem);
     max-width: calc(50% - 0.5rem);
   }
 
   .committee-layout {
-    grid-template-columns: 1fr;
+    justify-content: center;
   }
 }
 
@@ -1649,6 +1651,7 @@ main .section {
   .convener-grid .faculty-card,
   .student-convener-grid .faculty-card,
   .student-coordinator-grid .faculty-card,
+  .committee-layout .committee-card,
   .committee-extra-grid .committee-card,
   .student-president-grid .faculty-card {
     flex-basis: 100%;
