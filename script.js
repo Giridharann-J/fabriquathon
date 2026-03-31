@@ -374,3 +374,95 @@ const counterObserver = new IntersectionObserver(
 
 counters.forEach((counter) => counterObserver.observe(counter));
 
+function upgradeStudentCards() {
+  const studentCards = document.querySelectorAll(
+    "#faculty .student-president-grid .faculty-card, #faculty .student-convener-grid .faculty-card, #faculty .committee-layout .committee-card, #faculty .committee-extra-grid .committee-card"
+  );
+
+  if (!studentCards.length) return;
+
+  const defaultImage = "logo.jpeg";
+
+  studentCards.forEach((card) => {
+    const nameEl = card.querySelector("h4, h3");
+    const roleEl = card.querySelector(".role");
+    const metaEl = Array.from(card.querySelectorAll("p")).find((p) => !p.classList.contains("role"));
+    const phoneEl = card.querySelector(".phone-link");
+
+    const name = nameEl ? nameEl.textContent.trim() : "Student Member";
+    const role = roleEl ? roleEl.textContent.trim() : "Student Team";
+    const meta = metaEl ? metaEl.textContent.trim() : "";
+    const phoneLabel = phoneEl ? phoneEl.textContent.replace(/^\s*Call\s*/i, "").trim() : "Phone not listed";
+    const phoneHref = phoneEl ? phoneEl.getAttribute("href") : "#";
+
+    const shell = document.createElement("div");
+    shell.className = "student-card-shell";
+
+    const visual = document.createElement("div");
+    visual.className = "student-card-visual";
+
+    const image = document.createElement("img");
+    image.className = "student-card-image";
+    image.src = defaultImage;
+    image.alt = name;
+    image.loading = "lazy";
+
+    const overlay = document.createElement("div");
+    overlay.className = "student-card-overlay";
+
+    const identity = document.createElement("div");
+    identity.className = "student-card-identity";
+
+    const title = document.createElement("h4");
+    title.className = "student-card-name";
+    title.textContent = name;
+
+    const subtitle = document.createElement("p");
+    subtitle.className = "student-card-subtitle";
+    subtitle.textContent = meta || role;
+
+    identity.append(title, subtitle);
+    visual.append(image, overlay, identity);
+
+    const content = document.createElement("div");
+    content.className = "student-card-content";
+
+    const roleInfo = document.createElement("p");
+    roleInfo.className = "student-card-role";
+    roleInfo.textContent = role;
+
+    const numberInfo = document.createElement("p");
+    numberInfo.className = "student-card-number";
+    numberInfo.textContent = `Number: ${phoneLabel}`;
+
+    const actions = document.createElement("div");
+    actions.className = "student-card-actions";
+
+    const connectBtn = document.createElement("a");
+    connectBtn.className = "student-connect-btn";
+    connectBtn.textContent = "Connect";
+
+    if (phoneHref && phoneHref.startsWith("tel:")) {
+      connectBtn.href = phoneHref;
+    } else {
+      connectBtn.href = "#";
+      connectBtn.classList.add("is-disabled");
+      connectBtn.setAttribute("aria-disabled", "true");
+    }
+
+    actions.append(connectBtn);
+    content.append(roleInfo, numberInfo, actions);
+
+    const accent = document.createElement("div");
+    accent.className = "student-accent-line";
+
+    shell.append(visual, content, accent);
+
+    card.classList.add("student-profile-card");
+    card.innerHTML = "";
+    card.append(shell);
+  });
+}
+
+upgradeStudentCards();
+

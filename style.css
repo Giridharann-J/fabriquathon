@@ -923,6 +923,152 @@ main .section {
   max-width: calc(33.333% - 0.7rem);
 }
 
+.committee-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.committee-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.committee-column .committee-card {
+  width: 100%;
+}
+
+.committee-extra-grid {
+  margin-top: 1rem;
+}
+
+.committee-extra-grid .committee-card {
+  flex: 1 1 calc(33.333% - 0.7rem);
+  max-width: calc(33.333% - 0.7rem);
+}
+
+.student-profile-card::before {
+  content: none;
+}
+
+.student-profile-card {
+  padding: 0;
+  overflow: hidden;
+  border-radius: 1.2rem;
+  border: 1px solid rgba(72, 72, 71, 0.6);
+  background: #1a1a1a;
+  box-shadow: 0 0 42px -16px rgba(235, 0, 0, 0.4);
+}
+
+.student-card-visual {
+  position: relative;
+  height: 21.5rem;
+  overflow: hidden;
+}
+
+.student-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.2) contrast(1.2);
+}
+
+.student-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(26, 26, 26, 0.95), rgba(26, 26, 26, 0.08) 55%, rgba(26, 26, 26, 0));
+}
+
+.student-card-identity {
+  position: absolute;
+  left: 1.25rem;
+  right: 1.25rem;
+  bottom: 1.1rem;
+}
+
+.student-card-name {
+  margin: 0;
+  font-size: 1.55rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+}
+
+.student-card-subtitle {
+  margin: 0.45rem 0 0;
+  color: #ff8e7d;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.student-card-content {
+  padding: 1rem 1.25rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  background: #1a1a1a;
+}
+
+.student-card-role {
+  margin: 0;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffb2a8;
+  font-weight: 700;
+}
+
+.student-card-number {
+  margin: 0;
+  color: #adaaaa;
+  font-size: 0.93rem;
+}
+
+.student-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 0.25rem;
+}
+
+.student-connect-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.72rem 1.25rem;
+  border-radius: 999px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.11em;
+  color: #000;
+  background: linear-gradient(180deg, #ff8e7d, #eb0000);
+  border: 1px solid rgba(255, 142, 125, 0.35);
+  box-shadow: 0 10px 18px rgba(235, 0, 0, 0.2);
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.student-connect-btn:hover {
+  transform: translateY(-1px) scale(1.02);
+  filter: brightness(1.06);
+}
+
+.student-connect-btn.is-disabled {
+  pointer-events: none;
+  opacity: 0.58;
+}
+
+.student-accent-line {
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(to right, transparent, #ff8e7d, transparent);
+  opacity: 0.34;
+}
+
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1208,8 +1354,8 @@ main .section {
 }
 
 .reveal {
-  opacity: 0;
-  transform: translateY(28px);
+  opacity: 1;
+  transform: translateY(0);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
@@ -1358,9 +1504,14 @@ main .section {
   .organizer-grid .faculty-card,
   .convener-grid .faculty-card,
   .student-convener-grid .faculty-card,
-  .student-coordinator-grid .faculty-card {
+  .student-coordinator-grid .faculty-card,
+  .committee-extra-grid .committee-card {
     flex-basis: calc(50% - 0.5rem);
     max-width: calc(50% - 0.5rem);
+  }
+
+  .committee-layout {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1411,9 +1562,14 @@ main .section {
   .organizer-grid .faculty-card,
   .convener-grid .faculty-card,
   .student-convener-grid .faculty-card,
-  .student-coordinator-grid .faculty-card {
+  .student-coordinator-grid .faculty-card,
+  .committee-extra-grid .committee-card {
     flex-basis: calc(50% - 0.5rem);
     max-width: calc(50% - 0.5rem);
+  }
+
+  .committee-layout {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1453,6 +1609,7 @@ main .section {
   .convener-grid .faculty-card,
   .student-convener-grid .faculty-card,
   .student-coordinator-grid .faculty-card,
+  .committee-extra-grid .committee-card,
   .student-president-grid .faculty-card {
     flex-basis: 100%;
     max-width: 100%;
