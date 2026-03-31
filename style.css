@@ -340,6 +340,37 @@ main .section {
   box-shadow: none;
 }
 
+.sponsors-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+.sponsors-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.sponsors-label h3 {
+  margin: 0;
+  font-size: clamp(1rem, 1.7vw, 1.35rem);
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.sponsors-arrow {
+  color: var(--cyan);
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-shadow: 0 0 10px rgba(107, 227, 255, 0.32);
+}
+
 .sponsors-grid {
   display: flex;
   gap: 4rem;
@@ -1457,6 +1488,24 @@ main .section {
 
   .sponsors-bar {
     padding: 1.5rem 0;
+  }
+
+  .sponsors-row {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .sponsors-label {
+    gap: 0.5rem;
+  }
+
+  .sponsors-label h3 {
+    font-size: 0.95rem;
+  }
+
+  .sponsors-arrow {
+    font-size: 1rem;
+    letter-spacing: 0.08em;
   }
 
   .sponsors-grid {
