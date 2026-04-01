@@ -10,20 +10,11 @@ const isTouchDevice = window.matchMedia("(pointer: coarse)").matches || navigato
 if (bgm) {
   const MUSIC_VOLUME = 0.45;
   bgm.volume = MUSIC_VOLUME;
-  bgm.preload = "auto";
-
-  // Attempt immediate playback at script init (browser may respect this timing).
-  (function earlyPlayAttempt() {
-    if (bgm.paused) {
-      bgm.play().catch(() => {
-        // Expected if browser blocks - will retry on lifecycle + unlock events.
-      });
-    }
-  })();
+  bgm.preload = "metadata";
 
   // Force default ON for every fresh page open.
   let wantsMusic = true;
-  const MAX_AUTOSTART_TRIES = 4;
+  const MAX_AUTOSTART_TRIES = 1;
   let autoStartTryCount = 0;
   let autoStartTimer = null;
   let musicGateEl = null;
@@ -159,9 +150,8 @@ if (bgm) {
     });
   };
 
-  // Try across common lifecycle points for better browser/device coverage.
+  // Keep lifecycle triggers minimal to avoid repeated startup work.
   document.addEventListener("DOMContentLoaded", tryStartOnLifecycle, { once: true });
-  window.addEventListener("load", tryStartOnLifecycle, { once: true });
   window.addEventListener("pageshow", tryStartOnLifecycle, { once: true });
 
   const removeUnlockListeners = () => {
@@ -229,28 +219,11 @@ if (bgm) {
     }
   });
   bgm.addEventListener("play", tryUnmuteBootstrapAudio);
-  ["loadeddata", "canplay", "canplaythrough"].forEach((eventName) => {
-    bgm.addEventListener(eventName, () => {
-      if (wantsMusic && bgm.paused) {
-        tryStartOnLifecycle();
-      } else {
-        tryUnmuteBootstrapAudio();
-      }
-    });
-  });
-  ["stalled", "waiting", "suspend"].forEach((eventName) => {
-    bgm.addEventListener(eventName, () => {
-      if (wantsMusic && bgm.paused) {
-        scheduleAutoStartRetry(400);
-      }
-    });
-  });
-  // Aggressive startup: try immediately, then lifecycle, then user interaction.
-  window.setTimeout(() => {
-    if (bgm.paused && wantsMusic) {
+  bgm.addEventListener("canplay", () => {
+    if (wantsMusic && bgm.paused) {
       tryStartOnLifecycle();
     }
-  }, 50);
+  });
   setMusicButtonState();
 }
 
@@ -425,6 +398,8 @@ function upgradeStudentCards() {
     image.src = customImage || defaultImage;
     image.alt = name;
     image.loading = "lazy";
+    image.decoding = "async";
+    image.fetchPriority = "low";
     image.addEventListener("error", () => {
       if (image.src.includes(defaultImage)) return;
       image.src = defaultImage;
@@ -493,5 +468,9 @@ function upgradeStudentCards() {
   });
 }
 
-upgradeStudentCards();
+if ("requestIdleCallback" in window) {
+  window.requestIdleCallback(() => upgradeStudentCards(), { timeout: 1200 });
+} else {
+  window.setTimeout(upgradeStudentCards, 120);
+}
 

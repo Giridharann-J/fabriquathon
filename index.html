@@ -13,7 +13,7 @@
 </head>
 <body>
   <div class="bg-video" aria-hidden="true">
-    <video autoplay muted loop playsinline preload="metadata">
+    <video autoplay muted loop playsinline preload="none">
       <source src="assets/media/bull background.mp4" type="video/mp4">
     </video>
   </div>
@@ -79,7 +79,9 @@
           </div>
         </div>
         <div class="hero-logo-wrap">
-          <img class="hero-logo-video" src="assets/images/logo.jpeg" alt="Fabriquathon logo" decoding="async">
+          <video class="hero-logo-video" autoplay muted loop>
+            <source src="assets/media/bull background.mp4" type="video/mp4">
+          </video>
         </div>
       </div>
     </section>
@@ -464,6 +466,7 @@
             <div class="map-wrap">
               <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=80.0287%2C12.8198%2C80.0587%2C12.8398&layer=mapnik&marker=12.8298%2C80.0437" title="SRM Valliammai Engineering College map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
+            <a class="map-link" href="https://www.google.com/maps?sca_esv=bd7b89a16dc7985d&amp;rlz=1C1UEAD_enIN1115IN1115&amp;output=search&amp;q=srm+valliammai&amp;source=lnms&amp;fbs=ADc_l-aN0CWEZBOHjofHoaMMDiKpaEWjvZ2Py1XXV8d8KvlI3ppPEReeCOS7s1VbbZz2TLt2sOibMbYx2XAHg-v8xM5V8k6fWgBm4QnGbWIQ8LSjem1ETCYKMNjiM1qXE8tYHHgY5GxjjeWBp-KZA84g_u0kT-QI_x7wY5pw7j5qJA3gfZ9TcbI-P0r_bHbKCt2Dvex1kMy1PWRZUW_aTZsn7_r_imWu4g&amp;entry=mc&amp;ved=1t:200715&amp;ictx=111" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
           </article>
         </div>
       </div>
@@ -526,7 +529,7 @@
     <p class="copyright">&copy; 2026 FABRIQUATHON. All rights reserved.</p>
   </footer>
 
-  <audio id="bgm" loop preload="auto" autoplay muted playsinline aria-hidden="true">
+  <audio id="bgm" loop preload="metadata" muted playsinline aria-hidden="true">
     <source src="assets/media/music.mp3" type="audio/mpeg">
   </audio>
 
