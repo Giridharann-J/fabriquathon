@@ -12,15 +12,6 @@ if (bgm) {
   bgm.volume = MUSIC_VOLUME;
   bgm.preload = "auto";
 
-  const preloadSrc = (bgm.currentSrc || bgm.getAttribute("src") || "music.mp3").trim();
-  if (preloadSrc) {
-    fetch(preloadSrc, { cache: "force-cache" }).catch(() => {
-      // Ignore preload fetch errors; media element preload continues independently.
-    });
-  }
-
-  bgm.load();
-
   // Attempt immediate playback at script init (browser may respect this timing).
   (function earlyPlayAttempt() {
     if (bgm.paused) {
@@ -32,10 +23,11 @@ if (bgm) {
 
   // Force default ON for every fresh page open.
   let wantsMusic = true;
-  const MAX_AUTOSTART_TRIES = 18;
+  const MAX_AUTOSTART_TRIES = 4;
   let autoStartTryCount = 0;
   let autoStartTimer = null;
   let musicGateEl = null;
+  let isStartingMedia = false;
 
   const tryUnmuteBootstrapAudio = () => {
     if (!wantsMusic || bgm.paused || !bgm.muted) return;
@@ -94,6 +86,11 @@ if (bgm) {
   };
 
   const startMedia = () => {
+    if (isStartingMedia) {
+      return Promise.resolve(false);
+    }
+    isStartingMedia = true;
+
     if (bgVideoEl) {
       bgVideoEl.play().catch(() => {
         // Ignore - browser may still be initializing media.
@@ -102,6 +99,7 @@ if (bgm) {
 
     if (!wantsMusic) {
       setMusicButtonState();
+      isStartingMedia = false;
       return Promise.resolve(false);
     }
 
@@ -109,39 +107,44 @@ if (bgm) {
     bgm.muted = false;
     bgm.volume = MUSIC_VOLUME;
 
-    return bgm.play().then(() => {
-      setMusicButtonState();
-      clearAutoStartTimer();
-      hideMusicGate();
-      return true;
-    }).catch(() => {
-      // Fallback: browser may have blocked audible autoplay.
-      // Try muted bootstrap if still paused.
-      if (bgm.paused) {
-        bgm.muted = true;
-        return bgm.play().then(() => {
-          setMusicButtonState();
-          window.setTimeout(tryUnmuteBootstrapAudio, 100);
-          return true;
-        }).catch(() => {
-          // Full block: wait for user interaction.
-          setMusicButtonState();
-          showMusicGate();
-          return false;
-        });
-      }
-      return false;
-    });
+    return bgm.play()
+      .then(() => {
+        setMusicButtonState();
+        clearAutoStartTimer();
+        hideMusicGate();
+        return true;
+      })
+      .catch(() => {
+        // Fallback: browser may have blocked audible autoplay.
+        // Try muted bootstrap if still paused.
+        if (bgm.paused) {
+          bgm.muted = true;
+          return bgm.play().then(() => {
+            setMusicButtonState();
+            window.setTimeout(tryUnmuteBootstrapAudio, 100);
+            return true;
+          }).catch(() => {
+            // Full block: wait for user interaction.
+            setMusicButtonState();
+            showMusicGate();
+            return false;
+          });
+        }
+        return false;
+      })
+      .finally(() => {
+        isStartingMedia = false;
+      });
   };
 
-  const scheduleAutoStartRetry = (delayMs = 220) => {
+  const scheduleAutoStartRetry = (delayMs = 500) => {
     if (!wantsMusic || !bgm.paused || autoStartTryCount >= MAX_AUTOSTART_TRIES) return;
     clearAutoStartTimer();
     autoStartTimer = window.setTimeout(() => {
       autoStartTryCount += 1;
       startMedia().then((started) => {
         if (!started && wantsMusic && bgm.paused) {
-          scheduleAutoStartRetry(320);
+          scheduleAutoStartRetry(700);
         }
       });
     }, delayMs);
@@ -159,13 +162,7 @@ if (bgm) {
   // Try across common lifecycle points for better browser/device coverage.
   document.addEventListener("DOMContentLoaded", tryStartOnLifecycle, { once: true });
   window.addEventListener("load", tryStartOnLifecycle, { once: true });
-  window.addEventListener("pageshow", tryStartOnLifecycle);
-  window.addEventListener("focus", tryStartOnLifecycle);
-  document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) {
-      tryStartOnLifecycle();
-    }
-  });
+  window.addEventListener("pageshow", tryStartOnLifecycle, { once: true });
 
   const removeUnlockListeners = () => {
     window.removeEventListener("pointerdown", unlockAudio);
@@ -267,7 +264,15 @@ function updateNavbarState() {
 }
 
 updateNavbarState();
-window.addEventListener("scroll", updateNavbarState, { passive: true });
+let navbarTicking = false;
+window.addEventListener("scroll", () => {
+  if (navbarTicking) return;
+  navbarTicking = true;
+  window.requestAnimationFrame(() => {
+    updateNavbarState();
+    navbarTicking = false;
+  });
+}, { passive: true });
 
 if (navToggle && navMenu) {
   navToggle.addEventListener("click", () => {
@@ -381,7 +386,7 @@ function upgradeStudentCards() {
 
   if (!studentCards.length) return;
 
-  const defaultImage = "noimg.jpeg";
+  const defaultImage = "assets/images/noimg.jpeg";
 
   function splitLongName(name) {
     if (name.length <= 18 || !name.includes(" ")) {
