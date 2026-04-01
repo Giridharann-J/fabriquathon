@@ -4,56 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Student Team of FABRIQUATHON 2K26.">
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2rem;
-      margin-top: 1.4rem;
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
-    * {
-      font-family: 'Poppins', sans-serif;
-      width: min(100%, 360px);
-      min-height: 590px;
-      border-radius: 32px;
-      display: none;
-      background: linear-gradient(165deg, rgba(56, 0, 0, 0.96), rgba(18, 0, 0, 0.96));
-      border: 2px solid rgba(255, 66, 43, 0.95);
-      box-shadow:
-        0 0 0 1px rgba(255, 84, 54, 0.45) inset,
-        0 0 22px rgba(255, 61, 39, 0.65),
-        0 0 48px rgba(255, 41, 24, 0.45),
-        0 18px 36px rgba(0, 0, 0, 0.6);
-      background: radial-gradient(circle at center, #1a0025 0%, #0a0010 40%, #000 100%);
-      transition: transform 0.32s ease, box-shadow 0.32s ease;
-      overflow: hidden;
-    }
-
-    .student-team-page::before {
-      content: "";
-      position: absolute;
-      background: radial-gradient(circle at 50% 0, rgba(255, 38, 38, 0.34), transparent 58%);
-      pointer-events: none;
-      z-index: 0;
-      left: 50%;
-      top: 2rem;
-      transform: translateX(-50%);
-      pointer-events: none;
-      inset: -16px;
-      border-radius: 40px;
-      background: radial-gradient(circle, rgba(255, 36, 18, 0.46), transparent 70%);
-      filter: blur(24px);
-      z-index: 2;
-      opacity: 0.95;
-      pointer-events: none;
-
     .back-link {
       text-decoration: none;
-      transform: translateY(-6px);
-      box-shadow:
-        0 0 0 1px rgba(255, 84, 54, 0.5) inset,
-        0 0 26px rgba(255, 88, 69, 0.8),
-        0 0 62px rgba(255, 36, 18, 0.58),
-        0 26px 46px rgba(0, 0, 0, 0.64);
       border: 1px solid rgba(176, 188, 255, 0.55);
       padding: 0.45rem 0.8rem;
       border-radius: 999px;
@@ -61,75 +16,136 @@
       font-size: 0.88rem;
       background: rgba(20, 18, 38, 0.5);
       backdrop-filter: blur(8px);
-      position: relative;
-      min-height: 590px;
-      padding: 1.6rem 1.5rem;
+      color: #f6f8ff;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
 
-      display: flex;
-      flex-direction: column;
-      align-items: center;
     .back-link:hover {
       transform: translateY(-1px);
       border-color: rgba(255, 133, 223, 0.75);
       box-shadow: 0 0 18px rgba(167, 116, 255, 0.35);
-      width: 172px;
-      height: 172px;
-      border-radius: 50%;
-      margin-top: 0.55rem;
-      background-image: var(--card-image);
-      background-size: cover;
-      background-position: center;
-      border: 6px solid rgba(245, 245, 245, 0.94);
-      box-shadow: 0 0 0 2px rgba(255, 68, 47, 0.66), 0 10px 22px rgba(0, 0, 0, 0.45);
+    }
+
+    .student-team-page {
+      min-height: 100vh;
+      padding-top: 5.8rem;
+      background:
+        radial-gradient(1000px 520px at 50% 8%, rgba(255, 30, 30, 0.3), rgba(0, 0, 0, 0) 66%),
+        radial-gradient(760px 440px at 50% 62%, rgba(120, 0, 0, 0.22), rgba(0, 0, 0, 0) 70%),
+        #080102;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .student-team-page::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(255, 12, 12, 0.1), transparent 64%);
+      filter: blur(46px);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .student-team-page::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255, 115, 115, 0.12) 1px, transparent 1px);
+      background-size: 3px 3px;
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1.4rem;
+      align-items: stretch;
+    }
 
     .team-card {
       position: relative;
-      width: 230px;
-      width: 100%;
+      border-radius: 24px;
+      overflow: hidden;
+      background-image:
+        linear-gradient(to bottom, rgba(0, 0, 0, 0) 38%, rgba(0, 0, 0, 0.8) 72%, rgba(0, 0, 0, 0.95) 100%),
+        var(--card-image);
       background-size: cover;
+      background-position: center;
+      border: 1px solid rgba(255, 73, 73, 0.58);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.46), 0 0 18px rgba(255, 77, 77, 0.34);
+      min-height: 500px;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
       color: #ffffff;
-      margin-top: 1.2rem;
-      padding-inline: 0.3rem;
-      border-bottom: 1px solid rgba(255, 110, 94, 0.45);
-      padding-bottom: 0.9rem;
-      background-blend-mode: normal;
-      z-index: 2;
-      transition: transform 0.4s ease;
-    }
-      font-size: clamp(1.55rem, 2.5vw, 2.1rem);
-      font-weight: 700;
-      color: #fff;
-      line-height: 1.1;
-      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
-      inset: 0;
-      background:
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.06) 26%, transparent 55%),
-      margin: 0.38rem 0 0;
-      font-size: 1.05rem;
-      opacity: 0.98;
-      color: #ffe8e5;
-    .team-card::after {
-      letter-spacing: 0.01em;
-      font-weight: 600;
-      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
-      border-radius: 30px;
-      background: linear-gradient(45deg, #ff00cc, #7b2ff7);
-      filter: blur(18px);
-      margin: 0.12rem 0 0;
-      font-size: 0.9rem;
-      opacity: 0.85;
-      color: #ffcbc2;
-      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.52);
-      transform: scale(1.06);
     }
 
-      margin-top: auto;
-      width: 100%;
-    .team-content {
-      gap: 0.95rem;
-      inset: 0;
-      z-index: 2;
+    .team-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.5), 0 0 26px rgba(255, 77, 77, 0.42);
     }
+
+    .card-glass {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(170deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02) 35%, rgba(0, 0, 0, 0.4));
+      pointer-events: none;
+    }
+
+    .team-content {
+      position: relative;
+      z-index: 1;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 0.85rem;
+      padding: 1rem;
+      backdrop-filter: blur(1.5px);
+    }
+
+    .team-name {
+      margin: 0;
+      font-size: clamp(1.6rem, 2.2vw, 2rem);
+      line-height: 1.08;
+      overflow-wrap: anywhere;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+    }
+
+    .team-role {
+      margin: 0.34rem 0 0;
+      color: #ffdbd5;
+      font-size: 0.95rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .team-meta {
+      margin: 0.22rem 0 0;
+      color: #ffd1ca;
+      font-size: 0.88rem;
+    }
+
+    .team-bottom {
+      margin-top: auto;
+      display: grid;
+      gap: 0.72rem;
+    }
+
+    .team-actions {
+      display: none;
+    }
+
+    .icon-btn {
+      display: none;
+    }
+
+    .team-card .phone-link,
+    .team-contact-muted {
       display: none;
     }
 
@@ -137,20 +153,19 @@
       border: 1px solid rgba(255, 92, 68, 0.66);
       border-radius: 14px;
       overflow: hidden;
-      background: linear-gradient(180deg, rgba(96, 4, 4, 0.64), rgba(62, 2, 2, 0.66));
+      background: linear-gradient(180deg, rgba(96, 4, 4, 0.68), rgba(62, 2, 2, 0.72));
       box-shadow: inset 0 0 0 1px rgba(255, 140, 122, 0.2);
     }
 
     .team-contact-row {
-      min-height: 46px;
+      min-height: 44px;
       display: flex;
       align-items: center;
-      gap: 0.68rem;
+      gap: 0.6rem;
       color: #ffe7e2;
-      padding: 0.6rem 0.9rem;
-      text-decoration: none;
-      font-size: 1.03rem;
-      line-height: 1.3;
+      padding: 0.56rem 0.8rem;
+      font-size: 0.95rem;
+      line-height: 1.28;
     }
 
     .team-contact-row + .team-contact-row {
@@ -158,8 +173,8 @@
     }
 
     .team-contact-row .contact-icon {
-      width: 19px;
-      height: 19px;
+      width: 18px;
+      height: 18px;
       color: #ffe3dc;
       flex: 0 0 auto;
       opacity: 0.92;
@@ -174,16 +189,18 @@
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      width: min(100%, 230px);
+      width: min(100%, 200px);
       margin: 0 auto;
-      min-height: 56px;
+      min-height: 46px;
       border-radius: 999px;
       border: 1px solid rgba(255, 127, 105, 0.78);
       background: linear-gradient(180deg, #ff3f2e, #ca1208);
       color: #fff7f5;
       text-decoration: none;
-      font-size: 1.96rem;
-      font-weight: 600;
+      font-size: 0.92rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
       box-shadow: inset 0 0 0 1px rgba(255, 210, 204, 0.24), 0 0 18px rgba(255, 68, 47, 0.52);
       transition: transform 0.2s ease, filter 0.2s ease;
@@ -200,139 +217,10 @@
       background: linear-gradient(180deg, #aa3a32, #76231e);
     }
 
-    .icon-btn {
-      display: none;
-    }
-
-    .team-card .phone-link,
-    .team-contact-muted {
-      display: none;
-    }
-
-    .student-team-page {
-      min-height: 100vh;
-      padding-top: 5.8rem;
-      background:
-        radial-gradient(1000px 520px at 50% 8%, rgba(255, 30, 30, 0.3), rgba(0, 0, 0, 0) 66%),
-        radial-gradient(760px 440px at 50% 62%, rgba(120, 0, 0, 0.22), rgba(0, 0, 0, 0) 70%),
-        #080102;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .student-team-page::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at center, rgba(255, 12, 12, 0.1), transparent 64%);
-      filter: blur(46px);
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .student-team-page::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(rgba(255, 115, 115, 0.12) 1px, transparent 1px);
-      background-size: 3px 3px;
-      opacity: 0.08;
-      pointer-events: none;
-      z-index: 0;
-      position: absolute;
-    }
-
-    .team-bottom {
-      position: absolute;
-      bottom: 12px;
-      left: 12px;
-      right: 12px;
-        grid-template-columns: 1fr;
-        gap: 1.45rem;
+    @media (max-width: 960px) {
+      .team-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
-
-      .team-card {
-        width: min(100%, 385px);
-      }
-
-      .team-contact-btn {
-        width: min(100%, 215px);
-        min-height: 52px;
-        font-size: 1.7rem;
-    }
-
-    .team-actions {
-      display: flex;
-      justify-content: space-between;
-      gap: 0.5rem;
-      width: 100%;
-
-      .team-content {
-        min-height: 560px;
-      }
-
-      .team-content::before {
-        width: 154px;
-        height: 154px;
-      }
-
-      .team-name {
-        font-size: 1.95rem;
-      }
-
-      .team-contact-row {
-        font-size: 0.96rem;
-      }
-
-      .team-contact-btn {
-        font-size: 1.58rem;
-      }
-    }
-
-    .icon-btn {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 0;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255, 255, 255, 0.86);
-      font-size: 13px;
-      padding: 0;
-      cursor: pointer;
-    }
-
-    .icon-btn svg {
-      width: 13px;
-      height: 13px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.8;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .team-card .phone-link,
-    .team-contact-muted {
-      display: block;
-      text-align: center;
-      font-size: 10px;
-      line-height: 1.25;
-      color: rgba(255, 255, 255, 0.9);
-      background: rgba(255, 255, 255, 0.14);
-      border-radius: 999px;
-      padding: 0.28rem 0.45rem;
-      text-decoration: none;
-      margin: 0;
-    }
-
-    .team-card .phone-link:hover {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.22);
     }
 
     @media (max-width: 760px) {
@@ -341,14 +229,37 @@
       }
 
       .team-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr;
         gap: 1rem;
+      }
+
+      .team-card,
+      .team-content {
+        min-height: 450px;
+      }
+
+      .team-name {
+        font-size: clamp(1.35rem, 6.4vw, 1.85rem);
       }
     }
 
-    @media (max-width: 540px) {
-      .team-grid {
-        grid-template-columns: 1fr;
+    @media (max-width: 420px) {
+      .team-card,
+      .team-content {
+        min-height: 420px;
+      }
+
+      .team-content {
+        padding: 0.85rem;
+      }
+
+      .team-contact-row {
+        font-size: 0.88rem;
+      }
+
+      .team-contact-btn {
+        width: 100%;
+        min-height: 42px;
       }
     }
   </style>

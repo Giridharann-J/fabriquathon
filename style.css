@@ -2007,6 +2007,37 @@ main .section {
   .contact-card li {
     font-size: 0.93rem;
   }
+
+  .faculty-card h3,
+  .faculty-card h4,
+  .student-card-name,
+  .student-card-role,
+  .student-card-number {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .student-card-visual {
+    flex: 0 0 auto;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    aspect-ratio: 1 / 1;
+  }
+}
+
+@media (max-width: 340px) {
+  .nav-menu {
+    left: 0.25rem;
+    right: 0.25rem;
+  }
+
+  .btn,
+  .social-chip,
+  .phone-link,
+  .student-connect-btn {
+    font-size: 0.8rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
