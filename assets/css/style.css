@@ -750,6 +750,16 @@ main .section {
   gap: 0.85rem;
 }
 
+.registration-deadline {
+  margin-top: 1.2rem;
+  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+  color: var(--text-soft);
+  text-align: center;
+  padding: 0.8rem;
+  border-top: 1px dashed rgba(107, 227, 255, 0.4);
+  padding-top: 1rem;
+}
+
 .countdown-bar {
   padding-top: 1rem;
 }
@@ -2049,6 +2059,26 @@ main .section {
     margin: auto;
   }
 
+  .countdown-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .time-box {
+    padding: 0.75rem 0.4rem;
+  }
+
+  .time-value {
+    font-size: clamp(1.1rem, 5vw, 1.6rem);
+  }
+
+  .registration-deadline {
+    margin-top: 0.8rem;
+    font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+    padding: 0.6rem;
+    padding-top: 0.8rem;
+  }
+
   .corner-glow {
     width: 60px;
     height: 60px;
@@ -2206,6 +2236,33 @@ main .section {
     max-width: 260px;
   }
 
+  .countdown-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem;
+  }
+
+  .time-box {
+    padding: 0.65rem 0.3rem;
+    border-radius: 8px;
+  }
+
+  .time-value {
+    font-size: clamp(1rem, 4vw, 1.4rem);
+  }
+
+  .time-label {
+    font-size: 0.75rem;
+  }
+
+  .countdown-bar h3 {
+    font-size: 1rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .section {
+    padding: 3.5rem 0;
+  }
+
   .corner-glow {
     width: 50px;
     height: 50px;
@@ -2260,11 +2317,32 @@ main .section {
   }
 
   .section {
-    padding: 3.8rem 0;
+    padding: 3.2rem 0;
   }
 
   .hero-panel {
     padding: 0.95rem;
+  }
+
+  .countdown-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.35rem;
+  }
+
+  .time-box {
+    padding: 0.6rem 0.25rem;
+  }
+
+  .time-value {
+    font-size: clamp(0.95rem, 3.5vw, 1.2rem);
+  }
+
+  .time-label {
+    font-size: 0.7rem;
+  }
+
+  .countdown-bar h3 {
+    font-size: 0.95rem;
   }
 
   .hero-logo-wrap {
@@ -2273,15 +2351,24 @@ main .section {
   }
 
   .hero-title {
-    font-size: clamp(1.45rem, 10vw, 2.1rem);
+    font-size: clamp(1.35rem, 9vw, 2rem);
   }
 
   .hero-subtitle {
-    font-size: clamp(1.32rem, 10vw, 1.95rem);
+    font-size: clamp(1.25rem, 9vw, 1.85rem);
   }
 
   .prize-callout {
-    font-size: 1.55rem;
+    font-size: clamp(1.3rem, 4vw, 1.55rem);
+  }
+
+  .hero-meta {
+    font-size: clamp(0.85rem, 2vw, 0.92rem);
+  }
+
+  .registration-deadline {
+    font-size: clamp(0.8rem, 1.8vw, 0.89rem);
+    margin-top: 0.6rem;
   }
 
   .sponsors-showcase {
@@ -2333,6 +2420,33 @@ main .section {
   .hero-logo-wrap {
     max-width: 200px;
     padding: 0.35rem;
+  }
+
+  .countdown-grid {
+    gap: 0.3rem;
+  }
+
+  .time-box {
+    padding: 0.55rem 0.2rem;
+    border-radius: 6px;
+  }
+
+  .time-value {
+    font-size: 0.95rem;
+  }
+
+  .countdown-bar h3 {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-head h2 {
+    font-size: clamp(1.3rem, 8vw, 2rem);
+  }
+
+  .registration-deadline {
+    font-size: 0.78rem;
+    margin-top: 0.5rem;
   }
 
   .corner-glow {
