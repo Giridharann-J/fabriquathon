@@ -262,6 +262,66 @@
         min-height: 42px;
       }
     }
+
+    @media (max-width: 640px) {
+      .nav-wrap {
+        min-height: auto;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+      }
+
+      .back-link {
+        width: 100%;
+        text-align: center;
+      }
+
+      .student-team-page {
+        padding-top: 7.2rem;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .team-card,
+      .team-content {
+        min-height: 390px;
+      }
+
+      .team-contact-row {
+        padding: 0.5rem 0.65rem;
+      }
+    }
+
+    @media (max-width: 320px) {
+      .team-card,
+      .team-content {
+        min-height: 360px;
+      }
+
+      .team-name {
+        font-size: clamp(1.12rem, 7vw, 1.45rem);
+      }
+
+      .team-role,
+      .team-meta,
+      .team-contact-row,
+      .team-contact-btn {
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-height: 740px) {
+      .student-team-page {
+        padding-top: 6.4rem;
+      }
+
+      .team-card,
+      .team-content {
+        min-height: 400px;
+      }
+    }
   </style>
 </head>
 <body>

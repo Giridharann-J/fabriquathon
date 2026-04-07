@@ -31,6 +31,16 @@ body {
 html,
 body {
     width: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+h1,
+h2,
+label,
+p,
+button {
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 /* Video Background Styling */
@@ -221,6 +231,26 @@ h1 { color: #fff; text-align: center; margin-bottom: 30px; font-weight: 500; }
     .checkbox-group label { font-size: 0.86em; }
     .input-group input { font-size: 0.95em; }
     .btn { font-size: 1em; padding: 13px 16px; }
+}
+
+@media (max-width: 340px) {
+    body { padding: 12px 8px; }
+    .form-container { padding: 16px 12px; max-height: calc(100dvh - 24px); }
+    .radio-group { gap: 10px; }
+    .checkbox-group { gap: 8px; }
+    #enter-btn { font-size: 1rem; padding: 10px 20px; }
+}
+
+@media (max-width: 320px) {
+    .form-container { padding: 14px 10px; border-radius: 12px; }
+    h1 { font-size: 1.45em; }
+    .welcome-content h1 { font-size: clamp(1.7rem, 9vw, 2.1rem); }
+    #music-toggle-btn { width: 42px; height: 42px; font-size: 18px; }
+}
+
+@media (max-height: 700px) {
+    body { align-items: flex-start; }
+    .form-container { max-height: calc(100dvh - 24px); }
 }
 
 </style>
